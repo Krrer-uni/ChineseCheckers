@@ -1,2 +1,5 @@
 /.idea/
-/ChineseCheckers.iml
+/target/
+/bin/
+/.classpath
+/.project
