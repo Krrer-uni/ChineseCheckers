@@ -5,11 +5,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
+    Dimension windowDimensions;
     Board board;
-    BoardFactory boardFactory ;
-    public GamePanel(){
-        boardFactory = new BoardFactory();
-        board = boardFactory.getBoard();
+    BoardBuilder boardBuilder;
+    public GamePanel(int windowWidth, int windowHeight){
+        boardBuilder = new BoardBuilder(new Dimension(windowWidth,windowHeight));
+        board = boardBuilder.getBoard();
         repaint();
     }
     @Override
@@ -19,7 +20,10 @@ public class GamePanel extends JPanel {
         graphics2D.setPaint(Color.BLUE);
         for(ArrayList<Field> row : board.fieldArray){
             for(Field field : row){
-                graphics2D.draw(field.getField());
+                if(field.getOwnerId() == 0) graphics2D.setPaint(Color.BLACK);
+                if(field.getOwnerId() == 1) graphics2D.setPaint(Color.BLUE);
+                if(field.getOwnerId() == 2) graphics2D.setPaint(Color.RED);
+                graphics2D.fill(field.getField());
             }
         }
     }
