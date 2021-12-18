@@ -23,6 +23,10 @@ public class GamePanel extends JPanel {
                 if(field.getOwnerId() == 0) graphics2D.setPaint(Color.BLACK);
                 if(field.getOwnerId() == 1) graphics2D.setPaint(Color.BLUE);
                 if(field.getOwnerId() == 2) graphics2D.setPaint(Color.RED);
+                if(field.getOwnerId() == 3) graphics2D.setPaint(Color.GREEN);
+                if(field.getOwnerId() == 4) graphics2D.setPaint(Color.PINK);
+                if(field.getOwnerId() == 5) graphics2D.setPaint(Color.YELLOW);
+                if(field.getOwnerId() == 6) graphics2D.setPaint(Color.MAGENTA);
                 graphics2D.fill(field.getField());
             }
         }
