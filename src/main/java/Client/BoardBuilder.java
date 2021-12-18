@@ -11,7 +11,7 @@ public class BoardBuilder {
     int rows;
     int columns;
     ArrayList<Integer> boardLayout;
-    private Board board;
+    int playerCount;
     private int playerId;
     private Dimension windowDimension;
     private int fieldDistance;
@@ -23,30 +23,29 @@ public class BoardBuilder {
     public BoardBuilder(Dimension windowDimension) {
         this.windowDimension = windowDimension;
 
-        board = new Board();
         rows = 17;
         columns = 13;
         layout = new ArrayList<>();
         fieldDistance = windowDimension.width / rows;
         nonEmptyFieldDimension = new Dimension(windowDimension.width / (2 * rows),
                 windowDimension.height / (2 * rows));
-        setLayout(2);
 
         emptyFieldDistanceCorrection = nonEmptyFieldDimension.width / 2;
         emptyFieldDimension = new Dimension(windowDimension.width / (2 * rows) / 2,
                 windowDimension.height / (2 * rows) / 2);
     }
 
+
     public Board getBoard() {
+        Board board = new Board();
         for (int i = 0; i < rows; i++) {
             board.fieldArray.add(new ArrayList<>());
             for (int j = 0; j < columns; j++) {
                 if (layout.get(i).get(j) == 0) {
-                    board.fieldArray.get(i).add(new EmptyField(0,
+                    board.fieldArray.get(i).add(new PlayerField(0,
                             new Point2D.Float(fieldDistance * j + (i % 2 == 1 ?
-                                    fieldDistance / 2 : 0) + emptyFieldDistanceCorrection,
-                                    fieldDistance * i + emptyFieldDistanceCorrection),
-                            emptyFieldDimension));
+                                    fieldDistance / 2 : 0), fieldDistance * i),
+                            nonEmptyFieldDimension));
                 } else if (layout.get(i).get(j) == 1) {
                     board.fieldArray.get(i).add(new PlayerField(1,
                             new Point2D.Float(fieldDistance * j + (i % 2 == 1 ?
@@ -64,7 +63,7 @@ public class BoardBuilder {
     }
 
 
-    private void setLayout(int playerCount) {
+    public void setLayout(int playerCount) {
         if (playerCount == 2) {
             layout.add(new ArrayList<>(Arrays.asList(
                     -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1
