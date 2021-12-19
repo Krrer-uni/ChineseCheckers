@@ -11,7 +11,6 @@ public class MainWindow extends JFrame {
         setSize(windowSize,windowSize);
         setLayout(new BorderLayout());
         setResizable(false);
-        getContentPane().setForeground(new Color(168, 107, 50));
         GamePanel gamePanel = new GamePanel(getWidth(),getHeight());
         add(gamePanel,BorderLayout.CENTER);
     }
