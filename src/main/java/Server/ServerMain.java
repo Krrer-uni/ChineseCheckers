@@ -12,7 +12,7 @@ public class ServerMain {
             System.out.println("Server is Running...");
             var pool = Executors.newFixedThreadPool(200);
             Scanner in = new Scanner(System.in);
-            Game game = new Game();
+            Game game = new Game(new AllAllowedChineseCheckersRules());
             System.out.println("Type in number of players: ");
             int number = in.nextInt();
             try {
@@ -25,6 +25,9 @@ public class ServerMain {
             }
             catch (WrongPlayerNumber ex){
             	System.out.println("Wrong number of players!");
+            }
+            finally {
+            	in.close();
             }
         }
     }

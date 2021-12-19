@@ -40,4 +40,8 @@ public class Client2ServerConnection {
             socket.close();
         }
     }
+    
+    public void sendMove(int rowSource, int columnSource, int rowTarget, int columnTarget) {
+    	out.println("MOVE " + rowSource + " " + columnSource + " " + rowTarget + " " + columnTarget);
+    }
 }
