@@ -47,5 +47,10 @@ public class Game {
 
 		private static final long serialVersionUID = 1L;
 	}
-	
+
+
+	public int getNumberPlayers() {
+		return numberPlayers;
+	}
+
 }

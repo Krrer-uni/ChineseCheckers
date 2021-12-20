@@ -63,6 +63,10 @@ public class BoardBuilder {
                     board.fieldArray.get(i).add(new PlayerField(2,
                             new Point2D.Float(fieldDistanceTemp, fieldDistance * i),
                             nonEmptyFieldDimension));
+                }else if (layout.get(i).get(j) == 3) {
+                    board.fieldArray.get(i).add(new PlayerField(3,
+                            new Point2D.Float(fieldDistanceTemp, fieldDistance * i),
+                            nonEmptyFieldDimension));
                 }
             }
         }
@@ -99,6 +103,58 @@ public class BoardBuilder {
             )));
             layout.add(new ArrayList<>(Arrays.asList(
                     -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, -1, -1, -1, 2, 2, 2, 2, -1, -1, -1, -1, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, -1, -1, -1, -1, 2, 2, 2, -1, -1, -1, -1, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, -1, -1, -1, -1, 2, 2, -1, -1, -1, -1, -1, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, -1, -1, -1, -1, -1, 2, -1, -1, -1, -1, -1, -1
+            )));
+        } else if (playerCount == 3) {
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, -1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, -1, -1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, -1, -1, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1
+            )));
+            layout.add(new ArrayList<>(Arrays.asList(
+                    -1, -1, 0, 0, 0, 3, 3, 3, 3, 0, 0, -1, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
                     -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1

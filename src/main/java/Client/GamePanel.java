@@ -26,6 +26,11 @@ public class GamePanel extends JPanel {
     	this.mediator=mediator;
     }
 
+    public void setGameLayout(int playerCount){
+        boardBuilder.setLayout(playerCount);
+        board = boardBuilder.getBoard();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

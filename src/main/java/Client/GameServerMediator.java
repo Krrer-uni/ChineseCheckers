@@ -19,4 +19,8 @@ public class GameServerMediator {
 	public void sendMove(int rowSource, int columnSource, int rowTarget, int columnTarget) {
 		server.sendMove(rowSource, columnSource, rowTarget, columnTarget);
 	}
+
+	public void playerCountInit(int playerCount){
+		gamePanel.setGameLayout(playerCount);
+	}
 }

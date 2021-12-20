@@ -38,7 +38,7 @@ public class Player implements Runnable {
     private void setup() throws IOException {
         input = new Scanner(socket.getInputStream());
         output = new PrintWriter(socket.getOutputStream(), true);
-        output.println("WELCOME " + playerId);
+        output.println("WELCOME " + playerId + " " + game.getNumberPlayers());
     }
 
     private void processCommands() {
