@@ -32,7 +32,6 @@ public class Client2ServerConnection {
                 if (response.startsWith("VALID_MOVE")) {
                     //window.message("Valid move, please wait");
                 } else if (response.startsWith("PLAYER_MOVED")) {
-                	
                     mediator.updateBoard(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]), Integer.parseInt(commands[3]), Integer.parseInt(commands[4]));
                     //window.message("Opponent moved, your turn");
                 }

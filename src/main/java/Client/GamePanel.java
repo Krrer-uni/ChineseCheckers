@@ -54,6 +54,9 @@ public class GamePanel extends JPanel {
         Field tempField = board.fieldArray.get(rowSource).get(columnSource);
         board.fieldArray.get(rowSource).set(columnSource, board.fieldArray.get(rowTarget).get(columnTarget));
         board.fieldArray.get(rowTarget).set(columnTarget, tempField);
+
+        System.out.println("zamieniono z " + rowTarget + "," + columnTarget);
+        repaint();
     }
 
     private class MyMouseListener extends MouseInputAdapter {
@@ -80,36 +83,11 @@ public class GamePanel extends JPanel {
             } else for (ArrayList<Field> row : board.fieldArray) {
                 for (Field field : row) {
                     if (field.getField().contains(e.getX(), e.getY())) {
-                        System.out.println("zamieniono z " + row.indexOf(field) + "," + board.fieldArray.indexOf(row));
                         int targetColumn = row.indexOf(field);
                         int targetRow = board.fieldArray.indexOf(row);
-//
-//                        Rectangle2D tempBounds = field.getField().getFrame();
-//                        double x,y,w,h;
-//                        x = tempBounds.getX();
-//                        y = tempBounds.getY();
-//                        w = tempBounds.getWidth();
-//                        h = tempBounds.getHeight();
-//
-//                        Field tempField = board.fieldArray.get(chosenRow).get(chosenColumn);
-//
-//                        Rectangle2D tempBounds2 = tempField.getField().getFrame();
-//                        double x2,y2,w2,h2;
-//                        x2 = tempBounds.getX();
-//                        y2 = tempBounds.getY();
-//                        w2 = tempBounds.getWidth();
-//                        h2 = tempBounds.getHeight();
-//
-////                        Field tempField = board.fieldArray.get(chosenRow).get(chosenColumn);
-//                        board.fieldArray.get(targetRow).get(targetColumn).getField().setFrame(x2,y2,w2,h2);
-////                        field.getField()
-//                        board.fieldArray.get(chosenRow).get(chosenColumn).getField().setFrame(x,y,w,h);
-                        
+
                         mediator.sendMove(sourceRow,sourceColumn,targetRow,targetColumn);
-                        
 
-
-                        repaint();
                         choosingTarget = true;
                         break;
                     }
