@@ -17,9 +17,14 @@ public class ServerMain {
             int number = in.nextInt();
             try {
             	game.setPlayers(number);
-            	for(int i=1; i<=number; i++) {
+            	int i = 1;
+            	while(i<=number) {
             		Player p = new Player(listener.accept(), i, game);
+            		i++;
+            		if(p==null)
+            			System.out.println("xd");
             		game.addPlayer(p);
+            		System.out.println("Dodano " + i + "gracza");
             		pool.execute(p);
             	}
             }

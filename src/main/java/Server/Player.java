@@ -57,11 +57,10 @@ public class Player implements Runnable {
         try {
         	
             if (game.move(x1, y1, x2, y2, this)) {
-            	output.println("VALID_MOVE");
+            	for(Player player : game.getPlayerList()) {
+                	player.output.println("PLAYER_MOVED " + x1 + " " + y1 + " " + x2 + " " + y2);
+                }
             }	
-            for(Player opponent : game.getPlayerList()) {
-            	opponent.output.println("OPPONENT_MOVED " + x1 + " " + y1 + " " + x2 + " " + y2);
-            }
             /*
             if (hasWinner()) {
                 output.println("VICTORY");

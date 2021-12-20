@@ -7,8 +7,14 @@ public class Game {
 	private int numberPlayers;
 	ArrayList<Player> players;
 	
+	
+	public Game () {
+		players = new ArrayList<>();
+	}
+	
 	public Game (GameRules gameRules) {
 		this.gameRules = gameRules;
+		players = new ArrayList<>();
 	}
 	
 	public void setGameRules (GameRules gameRules) {

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel {
     Board board;
     BoardBuilder boardBuilder;
+    GameServerMediator mediator;
 
     public GamePanel(int windowWidth, int windowHeight) {
 
@@ -19,6 +20,10 @@ public class GamePanel extends JPanel {
         setBackground(new Color(160, 101, 28));
         repaint();
         addMouseListener(new MyMouseListener());
+    }
+    
+    public void setGameServerMediator(GameServerMediator mediator) {
+    	this.mediator=mediator;
     }
 
     @Override
@@ -40,7 +45,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    private void updateBoard(int rowSource, int columnSource, int rowTarget, int columnTarget){
+    public void updateBoard(int rowSource, int columnSource, int rowTarget, int columnTarget){
         Rectangle2D tempFrameSource = board.fieldArray.get(rowSource).get(columnSource).getField().getFrame();
         Rectangle2D tempFrameTarget = board.fieldArray.get(rowTarget).get(columnTarget).getField().getFrame();
         board.fieldArray.get(rowSource).get(columnSource).getField().setFrame(tempFrameTarget);
@@ -99,8 +104,9 @@ public class GamePanel extends JPanel {
 //                        board.fieldArray.get(targetRow).get(targetColumn).getField().setFrame(x2,y2,w2,h2);
 ////                        field.getField()
 //                        board.fieldArray.get(chosenRow).get(chosenColumn).getField().setFrame(x,y,w,h);
-                        updateBoard(sourceRow,sourceColumn,targetRow,targetColumn);
-
+                        
+                        mediator.sendMove(sourceRow,sourceColumn,targetRow,targetColumn);
+                        
 
 
                         repaint();
