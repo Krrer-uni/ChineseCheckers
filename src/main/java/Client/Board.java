@@ -7,4 +7,8 @@ public class Board {
     public Board(){
         fieldArray = new ArrayList<>();
     }
+    
+    public ArrayList<ArrayList<Field>> getFieldArray(){
+    	return fieldArray;
+    }
 }

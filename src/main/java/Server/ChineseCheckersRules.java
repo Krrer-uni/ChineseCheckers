@@ -9,12 +9,15 @@ import Client.BoardBuilder;
 import Client.Field;
 import Client.PlayerField;
 
-public class AllAllowedChineseCheckersRules implements GameRules {
+public class ChineseCheckersRules implements GameRules {
 	Board board;
-	public AllAllowedChineseCheckersRules() {
-		BoardBuilder boardBuilder = new BoardBuilder(new Dimension(100, 100));
-        boardBuilder.setLayout(2);
-        board = boardBuilder.getBoard();
+	
+	public ChineseCheckersRules(int playerNumber) {
+		if(this.isPlayerNumberGood(playerNumber)) {
+			BoardBuilder boardBuilder = new BoardBuilder(new Dimension(100, 100));
+	        boardBuilder.setLayout(playerNumber);
+	        board = boardBuilder.getBoard();
+		}
 	}
 	
 	@Override
@@ -24,8 +27,16 @@ public class AllAllowedChineseCheckersRules implements GameRules {
 		for(ArrayList<Field> field_tab: board.getFieldArray()) {
 			for(Field field: field_tab) {
 				if(field instanceof PlayerField && field.getOwnerId()==0) {
-					tab[i][0] = field_tab.indexOf(field);
-					tab[i][1] = board.getFieldArray().indexOf(field_tab);
+					int x = field_tab.indexOf(field);
+					int y = board.getFieldArray().indexOf(field_tab);
+					if((x == start_x+1 || x==start_x-1) && y==start_y ) {
+						tab[i][0] = x;
+						tab[i][1] = y;
+					}
+					else if(y==start_y+1 || y==start_y-1) {
+						tab[i][0] = x;
+						tab[i][1] = y;
+					}
 					i++;
 				}
 			}
@@ -64,5 +75,8 @@ public class AllAllowedChineseCheckersRules implements GameRules {
 		}
 		return false;
 	}
-
+	
+	public void checkCombo() {
+	  
+	}
 }

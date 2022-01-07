@@ -44,6 +44,7 @@ public class Player implements Runnable {
     private void processCommands() {
         while (input.hasNextLine()) {
             String command = input.nextLine();
+            System.out.println(command);
             String [] commands = command.split(" ");
             if (commands[0].equals("QUIT")) {
                 return;
@@ -58,7 +59,7 @@ public class Player implements Runnable {
         	
             if (game.move(x1, y1, x2, y2, this)) {
             	for(Player player : game.getPlayerList()) {
-                	player.output.println("PLAYER_MOVED " + x1 + " " + y1 + " " + x2 + " " + y2);
+                	player.output.println("PLAYER " + playerId + " MOVED " + x1 + " " + y1 + " " + x2 + " " + y2);
                 }
             }	
             /*

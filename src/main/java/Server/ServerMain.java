@@ -12,17 +12,15 @@ public class ServerMain {
             System.out.println("Server is Running...");
             var pool = Executors.newFixedThreadPool(200);
             Scanner in = new Scanner(System.in);
-            Game game = new Game(new AllAllowedChineseCheckersRules());
             System.out.println("Type in number of players: ");
             int number = in.nextInt();
+            Game game = new Game(new ChineseCheckersRules(number));
             try {
             	game.setPlayers(number);
             	int i = 1;
             	while(i<=number) {
             		Player p = new Player(listener.accept(), i, game);
             		i++;
-            		if(p==null)
-            			System.out.println("xd");
             		game.addPlayer(p);
             		System.out.println("Dodano " + i + "gracza");
             		pool.execute(p);
