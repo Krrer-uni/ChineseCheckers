@@ -31,10 +31,11 @@ public class Client2ServerConnection {
                 String[] commands = response.split(" ");
                 if (response.startsWith("VALID_MOVE")) {
                     //window.message("Valid move, please wait");
-                } else if (response.startsWith("PLAYER_MOVED")) {
-                    mediator.updateBoard(Integer.parseInt(commands[1]),
-                            Integer.parseInt(commands[2]), Integer.parseInt(commands[3]),
-                            Integer.parseInt(commands[4]));
+                } else if (commands[0].equals("PLAYER") && commands[2].equals("MOVED")) {
+                	//commands[1] - id gracza, który sie ruszyl
+                    mediator.updateBoard(Integer.parseInt(commands[4]),
+                            Integer.parseInt(commands[3]), Integer.parseInt(commands[6]),
+                            Integer.parseInt(commands[5]));
                     //window.message("Opponent moved, your turn");
                 } else if (response.startsWith("WELCOME")) {
                     mediator.playerCountInit(Integer.parseInt(commands[2]));

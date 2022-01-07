@@ -91,7 +91,7 @@ public class GamePanel extends JPanel {
                         int targetColumn = row.indexOf(field);
                         int targetRow = board.fieldArray.indexOf(row);
 
-                        mediator.sendMove(sourceRow,sourceColumn,targetRow,targetColumn);
+                        mediator.sendMove(sourceColumn,sourceRow,targetColumn,targetRow);
 
                         choosingTarget = true;
                         break;
