@@ -11,9 +11,9 @@ public class Client2ServerConnection {
     private PrintWriter out;
     private GameServerMediator mediator;
 
-    public Client2ServerConnection(String serverAddress) throws Exception {
+    public Client2ServerConnection(String serverAddress, int port) throws Exception {
 
-        socket = new Socket(serverAddress, 21371);
+        socket = new Socket(serverAddress, port);
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream(), true);
     }
@@ -38,7 +38,7 @@ public class Client2ServerConnection {
                             Integer.parseInt(commands[5]));
                     //window.message("Opponent moved, your turn");
                 } else if (response.startsWith("WELCOME")) {
-                    mediator.playerCountInit(Integer.parseInt(commands[2]));
+                    mediator.gameInit(Integer.parseInt(commands[2]),Integer.parseInt(commands[1]));
                 }
             }
             out.println("QUIT");
@@ -51,6 +51,7 @@ public class Client2ServerConnection {
 
     public void sendMove(int rowSource, int columnSource, int rowTarget, int columnTarget) {
         out.println("MOVE " + rowSource + " " + columnSource + " " + rowTarget + " " + columnTarget);
+        System.out.println("MOVE " + rowSource + " " + columnSource + " " + rowTarget + " " + columnTarget);
     }
 
 

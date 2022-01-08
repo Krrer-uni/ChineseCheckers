@@ -20,7 +20,9 @@ public class GameServerMediator {
 		server.sendMove(rowSource, columnSource, rowTarget, columnTarget);
 	}
 
-	public void playerCountInit(int playerCount){
+	public void gameInit(int playerCount,int playerId){
 		gamePanel.setGameLayout(playerCount);
+		gamePanel.setPlayerId(playerId);
 	}
+
 }
