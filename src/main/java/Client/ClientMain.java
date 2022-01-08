@@ -1,11 +1,15 @@
 package Client;
 
 public class ClientMain {
-    public static void main(String[] args){
-    	MainWindow window = new MainWindow();
+	String address;
+	public ClientMain(String address){
+		this.address = address;
+	}
 
+	public static void main(String[] args){
+    	MainWindow window = new MainWindow();
         try {
-			Client2ServerConnection connection = new Client2ServerConnection("localhost");
+			Client2ServerConnection connection = new Client2ServerConnection("localhost", 21371);
 	        GameServerMediator mediator = new GameServerMediator(window, connection, window.getGamePanel());
 	        connection.setGameServerMediator(mediator);
 	        window.setGameServerMediator(mediator);

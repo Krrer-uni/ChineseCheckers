@@ -11,6 +11,7 @@ public class GamePanel extends JPanel {
     Board board;
     BoardBuilder boardBuilder;
     GameServerMediator mediator;
+    int playerId;
 
     public GamePanel(int windowWidth, int windowHeight) {
 
@@ -46,28 +47,37 @@ public class GamePanel extends JPanel {
                 else if (field.getOwnerId() == 5) graphics2D.setPaint(Color.YELLOW);
                 else if (field.getOwnerId() == 6) graphics2D.setPaint(Color.MAGENTA);
                 graphics2D.fill(field.getField());
+                if(field.isActive()){
+                    graphics2D.setPaint(Color.black);
+                    graphics2D.draw(field.getField());
+                }
             }
         }
     }
 
-    public void updateBoard(int rowSource, int columnSource, int rowTarget, int columnTarget){
-        Rectangle2D tempFrameSource = board.fieldArray.get(rowSource).get(columnSource).getField().getFrame();
-        Rectangle2D tempFrameTarget = board.fieldArray.get(rowTarget).get(columnTarget).getField().getFrame();
-        board.fieldArray.get(rowSource).get(columnSource).getField().setFrame(tempFrameTarget);
-        board.fieldArray.get(rowTarget).get(columnTarget).getField().setFrame(tempFrameSource);
+    public void setPlayerId(int playerId){
+        this.playerId = playerId;
+    }
 
-        Field tempField = board.fieldArray.get(rowSource).get(columnSource);
-        board.fieldArray.get(rowSource).set(columnSource, board.fieldArray.get(rowTarget).get(columnTarget));
-        board.fieldArray.get(rowTarget).set(columnTarget, tempField);
+    public void updateBoard(int sourceRow, int sourceColumn, int targetRow, int targetColumn){
+        board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
+        Rectangle2D tempFrameSource = board.fieldArray.get(sourceRow).get(sourceColumn).getField().getFrame();
+        Rectangle2D tempFrameTarget = board.fieldArray.get(targetRow).get(targetColumn).getField().getFrame();
+        board.fieldArray.get(sourceRow).get(sourceColumn).getField().setFrame(tempFrameTarget);
+        board.fieldArray.get(targetRow).get(targetColumn).getField().setFrame(tempFrameSource);
 
-        System.out.println("zamieniono z " + rowTarget + "," + columnTarget);
+        Field tempField = board.fieldArray.get(sourceRow).get(sourceColumn);
+        board.fieldArray.get(sourceRow).set(sourceColumn, board.fieldArray.get(targetRow).get(targetColumn));
+        board.fieldArray.get(targetRow).set(targetColumn, tempField);
+
+        System.out.println("zamieniono z " + targetRow + "," + targetColumn);
         repaint();
     }
 
     private class MyMouseListener extends MouseInputAdapter {
 
-        int sourceColumn;
-        int sourceRow;
+        int sourceColumn = 0;
+        int sourceRow = 0;
 
         boolean choosingTarget = true;
 
@@ -77,27 +87,44 @@ public class GamePanel extends JPanel {
                 for (ArrayList<Field> row : board.fieldArray) {
                     for (Field field : row) {
                         if (field.getField().contains(e.getX(), e.getY())) {
-                            System.out.println("wybrano " + row.indexOf(field) + "," + board.fieldArray.indexOf(row));
-                            sourceColumn = row.indexOf(field);
-                            sourceRow = board.fieldArray.indexOf(row);
-                            choosingTarget = false;
-                            break;
+                            if(field.getOwnerId() == playerId) {
+                                System.out.println("wybrano " + row.indexOf(field) + "," + board.fieldArray.indexOf(row));
+                                board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
+                                sourceColumn = row.indexOf(field);
+                                sourceRow = board.fieldArray.indexOf(row);
+                                choosingTarget = false;
+                                field.setActive(true);
+                                break;
+
+                            }
                         }
                     }
                 }
             } else for (ArrayList<Field> row : board.fieldArray) {
                 for (Field field : row) {
                     if (field.getField().contains(e.getX(), e.getY())) {
-                        int targetColumn = row.indexOf(field);
-                        int targetRow = board.fieldArray.indexOf(row);
-
-                        mediator.sendMove(sourceColumn,sourceRow,targetColumn,targetRow);
-
-                        choosingTarget = true;
-                        break;
+                        if(field.getOwnerId() == 0){
+                            int targetColumn = row.indexOf(field);
+                            int targetRow = board.fieldArray.indexOf(row);
+                            board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
+                            mediator.sendMove(sourceColumn, sourceRow, targetColumn, targetRow);
+                            choosingTarget = true;
+                            break;
+                        } else if(field.getOwnerId() == playerId) {
+                                System.out.println("wybrano ponownie " + row.indexOf(field) + "," + board.fieldArray.indexOf(row));
+                                board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
+                                sourceColumn = row.indexOf(field);
+                                sourceRow = board.fieldArray.indexOf(row);
+                                choosingTarget = false;
+                                field.setActive(true);
+                                break;
+                        }
                     }
                 }
             }
+            repaint();
         }
+
+
     }
 }
