@@ -29,9 +29,7 @@ public class Client2ServerConnection {
                 response = in.nextLine();
                 System.out.println(response);
                 String[] commands = response.split(" ");
-                if (response.startsWith("VALID_MOVE")) {
-                    //window.message("Valid move, please wait");
-                } else if (commands[0].equals("PLAYER") && commands[2].equals("MOVED")) {
+                if (commands[0].equals("PLAYER") && commands[2].equals("MOVED")) {
                 	//commands[1] - id gracza, który sie ruszyl
                     mediator.updateBoard(Integer.parseInt(commands[4]),
                             Integer.parseInt(commands[3]), Integer.parseInt(commands[6]),
