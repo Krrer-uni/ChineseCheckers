@@ -32,4 +32,7 @@ public class GameServerMediator {
 	public void sendSkip(){
 		server.sendSkip();
 	}
+	public void gameFinished(int place){
+		gamePanel.gameFinished(place);
+	}
 }

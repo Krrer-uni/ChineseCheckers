@@ -41,6 +41,8 @@ public class Client2ServerConnection {
                     mediator.gameInit(Integer.parseInt(commands[2]),Integer.parseInt(commands[1]));
                 } else if (response.startsWith("NEXT")) {
                     mediator.setCurrentPlayer(Integer.parseInt(commands[1]));
+                } else if (response.startsWith("FINISHED")){
+                    mediator.gameFinished(Integer.parseInt(commands[1]));
                 }
             }
             out.println("QUIT");
@@ -58,6 +60,7 @@ public class Client2ServerConnection {
 
     public void sendSkip(){
         out.println("SKIP");
+        System.out.println("SKIP");
     }
 
     // KOMENDA

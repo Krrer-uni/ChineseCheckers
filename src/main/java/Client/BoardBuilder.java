@@ -49,35 +49,38 @@ public class BoardBuilder {
         for (int i = 0; i < rows; i++) {
             board.fieldArray.add(new ArrayList<>());
             for (int j = 0; j < columns; j++) {
-                int fieldDistanceTemp = fieldDistance * j + (i % 2 == 1 ?
+                int fieldDistanceX = fieldDistance * j + (i % 2 == 1 ?
                         fieldDistance / 2 : 0) + xBoardOffset;
-                if (layout.get(i).get(j) == 0) {
+                int fieldDistanceY = fieldDistance * i + 20;
+                if (layout.get(i).get(j) == -1) {
+                    board.fieldArray.get(i).add(new EmptyField());
+                } else if (layout.get(i).get(j) == 0) {
                     board.fieldArray.get(i).add(new PlayerField(0,
-                            new Point2D.Float(fieldDistanceTemp, fieldDistance * i),
+                            new Point2D.Float(fieldDistanceX, fieldDistanceY),
                             nonEmptyFieldDimension));
                 } else if (layout.get(i).get(j) == 1) {
                     board.fieldArray.get(i).add(new PlayerField(1,
-                            new Point2D.Float(fieldDistanceTemp, fieldDistance * i),
+                            new Point2D.Float(fieldDistanceX, fieldDistanceY),
                             nonEmptyFieldDimension));
                 } else if (layout.get(i).get(j) == 2) {
                     board.fieldArray.get(i).add(new PlayerField(2,
-                            new Point2D.Float(fieldDistanceTemp, fieldDistance * i),
+                            new Point2D.Float(fieldDistanceX, fieldDistanceY),
                             nonEmptyFieldDimension));
                 }else if (layout.get(i).get(j) == 3) {
                     board.fieldArray.get(i).add(new PlayerField(3,
-                            new Point2D.Float(fieldDistanceTemp, fieldDistance * i),
+                            new Point2D.Float(fieldDistanceX, fieldDistanceY),
                             nonEmptyFieldDimension));
                 }else if (layout.get(i).get(j) == 4) {
                     board.fieldArray.get(i).add(new PlayerField(4,
-                            new Point2D.Float(fieldDistanceTemp, fieldDistance * i),
+                            new Point2D.Float(fieldDistanceX, fieldDistanceY),
                             nonEmptyFieldDimension));
                 }else if (layout.get(i).get(j) == 5) {
                     board.fieldArray.get(i).add(new PlayerField(5,
-                            new Point2D.Float(fieldDistanceTemp, fieldDistance * i),
+                            new Point2D.Float(fieldDistanceX, fieldDistanceY),
                             nonEmptyFieldDimension));
                 }else if (layout.get(i).get(j) == 6) {
                     board.fieldArray.get(i).add(new PlayerField(6,
-                            new Point2D.Float(fieldDistanceTemp, fieldDistance * i),
+                            new Point2D.Float(fieldDistanceX, fieldDistanceY),
                             nonEmptyFieldDimension));
                 }
             }
@@ -244,59 +247,7 @@ public class BoardBuilder {
             layout.add(new ArrayList<>(Arrays.asList(
                     -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1
             )));
-        } else if (playerCount == 3) {
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, -1, 0, 0, 0, -1, -1, -1, -1, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, 0, 0, 0, 0, -1, -1, -1, -1, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    1, 1, 1, 1, 0, 0, 0, 0, 0, 3, 3, 3, 3
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    1, 1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 3, 3, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 3, -1, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, 2, 2, 2, 2, -1, -1, -1, -1, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, -1, 2, 2, 2, -1, -1, -1, -1, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, -1, 2, 2, -1, -1, -1, -1, -1, -1
-            )));
-            layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, -1, -1, 2, -1, -1, -1, -1, -1, -1
-            )));
-        } else if (playerCount == 6) {
+        }  else if (playerCount == 6) {
             layout.add(new ArrayList<>(Arrays.asList(
                     -1, -1, -1, -1, -1, -1, 6, -1, -1, -1, -1, -1, -1
             )));
