@@ -68,6 +68,8 @@ public class Player implements Runnable {
                 return;
             } else if (commands[0].equals("MOVE")) {
                 processMoveCommand(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]), Integer.parseInt(commands[3]), Integer.parseInt(commands[4]));
+            } else if (commands[0].equals("SKIP")) {
+            	game.nextToMove(playerId);
             }
         }
     }
