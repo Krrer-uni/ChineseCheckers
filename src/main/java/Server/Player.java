@@ -56,6 +56,7 @@ public class Player implements Runnable {
         input = new Scanner(socket.getInputStream());
         output = new PrintWriter(socket.getOutputStream(), true);
         output.println("WELCOME " + playerId + " " + game.getNumberPlayers());
+        if(playerId == game.getNumberPlayers()) game.start();
     }
 
     private void processCommands() {

@@ -10,7 +10,7 @@ public class ServerMain {
 	public static void main(String[] args) throws Exception {
         try (var listener = new ServerSocket(21371)) {
             System.out.println("Server is Running...");
-            var pool = Executors.newFixedThreadPool(200);
+            var pool = Executors.newFixedThreadPool(10);
             Scanner in = new Scanner(System.in);
             System.out.println("Type in number of players: ");
             int number = in.nextInt();
@@ -25,7 +25,6 @@ public class ServerMain {
             		i++;
             		pool.execute(p);
             	}
-            	game.start();
             }
             catch (WrongPlayerNumber ex){
             	System.out.println("Wrong number of players!");
