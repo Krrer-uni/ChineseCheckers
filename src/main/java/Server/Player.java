@@ -12,13 +12,30 @@ public class Player implements Runnable {
 	Socket socket;
 	Scanner input;
 	PrintWriter output;
-	//PlayerState state;
+	PlayerState state;
 	
 	public Player(Socket socket, int playerId, Game game) {
         this.socket = socket;
         this.playerId = playerId;
         this.game = game;
+        this.state = new PlayerStateWait();
     }
+	
+	public PlayerState getState() {
+		return state;
+	}
+	
+	public void goNextState() {
+		state = state.nextState();
+		if(state instanceof PlayerStateMove) {
+			for(Player player : game.getPlayerList())
+				player.output.println("NEXT " + playerId);
+		}
+	}
+	
+	public void goWinState() {
+		state = state.winState();
+	}
 	
 	@Override
 	public void run() {
@@ -39,6 +56,7 @@ public class Player implements Runnable {
         input = new Scanner(socket.getInputStream());
         output = new PrintWriter(socket.getOutputStream(), true);
         output.println("WELCOME " + playerId + " " + game.getNumberPlayers());
+        if(playerId == game.getNumberPlayers()) game.start();
     }
 
     private void processCommands() {
@@ -57,10 +75,12 @@ public class Player implements Runnable {
     private void processMoveCommand(int x1, int y1, int x2, int y2) {
         try {
         	
-            if (game.move(x1, y1, x2, y2, this)) {
+            if (game.move(x1, y1, x2, y2, playerId)) {
             	for(Player player : game.getPlayerList()) {
                 	player.output.println("PLAYER " + playerId + " MOVED " + x1 + " " + y1 + " " + x2 + " " + y2);
+                	
                 }
+            	game.nextToMove(playerId);
             }	
             /*
             if (hasWinner()) {
