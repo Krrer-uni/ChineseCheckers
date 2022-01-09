@@ -16,25 +16,38 @@ public class GamePanel extends JPanel {
     int playerId;
     int currentPlayer;
     JButton skipbutton;
+    JTextArea playerInfo;
 
     public GamePanel(int windowWidth, int windowHeight) {
-        skipbutton = new JButton("Skip Turn");
+        currentPlayer = 0;
 
         boardBuilder = new BoardBuilder(new Dimension(windowWidth,
-                windowHeight - skipbutton.getHeight()));
+                windowHeight));
         boardBuilder.setLayout(2);
         board = boardBuilder.getBoard();
         setBackground(new Color(160, 101, 28));
-        repaint();
+
         setLayout(null);
+
+        skipbutton = new JButton("Skip Turn");
         add(skipbutton);
         skipbutton.setBounds((int) (windowWidth * 0.7), (int) (windowHeight * 0.8),
                 (int) (windowWidth * 0.25), (int) (windowHeight * 0.1));
-//        add(skipbutton);
+
+        playerInfo  = new JTextArea("You are a player " + playerId + "\n");
+        playerInfo.setEditable(false);
+        add(playerInfo);
+        playerInfo.setOpaque(false);
+        playerInfo.setBorder(null);
+        playerInfo.setFont(new Font("Sans", 0,20));
+        playerInfo.setBounds((int) (windowWidth * 0.05), (int) (windowHeight * 0.05),
+                (int) (windowWidth * 0.25), (int) (windowHeight * 0.1));
+
+
         addMouseListener(new GameMouseListener());
         skipbutton.addActionListener(new SkipButtonListener());
-        currentPlayer = 0;
 
+        repaint();
     }
 
 
@@ -72,6 +85,18 @@ public class GamePanel extends JPanel {
 
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
+        String message = "You are a player ";
+
+        message += playerId;
+        message += "\nYour color is ";
+        if(playerId == 1) message += "blue";
+        else if(playerId == 2) message += "red";
+        else if(playerId == 3) message += "green";
+        else if(playerId == 4) message += "pink";
+        else if(playerId == 5) message += "yellow";
+        else if(playerId == 6) message += "magenta";
+        this.playerInfo.setText(message);
+
     }
 
     public void setCurrentPlayer(int currentPlayer) {
