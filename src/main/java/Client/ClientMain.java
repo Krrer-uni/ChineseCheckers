@@ -8,19 +8,20 @@ public class ClientMain {
 
 	public static void main(String[] args){
     	MainWindow window = new MainWindow();
-        try {
-			Client2ServerConnection connection = new Client2ServerConnection("localhost", 21371);
-	        GameServerMediator mediator = new GameServerMediator(window, connection, window.getGamePanel());
-	        connection.setGameServerMediator(mediator);
-	        window.getGamePanel().setGameServerMediator(mediator);
+    	while(true) {
+			try {
+				Client2ServerConnection connection = new Client2ServerConnection("localhost", 21371);
+				GameServerMediator mediator = new GameServerMediator(window, connection, window.getGamePanel());
+				connection.setGameServerMediator(mediator);
+				window.getGamePanel().setGameServerMediator(mediator);
+				window.setVisible(true);
+				connection.listen();
 
-	        connection.listen();
 
-			window.setVisible(true);
-
-		} catch (Exception e) {
+			} catch (Exception e) {
 //			e.printStackTrace();
-			System.out.println(e.getMessage());
+				System.out.println(e.getMessage());
+			}
 		}
     }
 }

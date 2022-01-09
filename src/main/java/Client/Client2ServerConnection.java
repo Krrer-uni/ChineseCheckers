@@ -56,6 +56,9 @@ public class Client2ServerConnection {
         System.out.println("MOVE " + rowSource + " " + columnSource + " " + rowTarget + " " + columnTarget);
     }
 
+    public void sendSkip(){
+        out.println("SKIP");
+    }
 
     // KOMENDA
 }

@@ -29,4 +29,7 @@ public class GameServerMediator {
 		gamePanel.setCurrentPlayer(startingPlyer);
 	}
 
+	public void sendSkip(){
+		server.sendSkip();
+	}
 }
