@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame {
-    private static int windowSize = 500;
+    private static int windowSize = 700;
     private GamePanel gamePanel;
     private GameServerMediator mediator; //do wyrzucenia
     

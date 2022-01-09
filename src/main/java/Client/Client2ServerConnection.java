@@ -58,6 +58,7 @@ public class Client2ServerConnection {
 
     public void sendSkip(){
         out.println("SKIP");
+        System.out.println("SKIP");
     }
 
     // KOMENDA

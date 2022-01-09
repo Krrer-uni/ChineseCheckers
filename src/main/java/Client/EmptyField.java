@@ -8,19 +8,17 @@ import java.awt.geom.Point2D;
 public class EmptyField implements Field{
 
     Ellipse2D.Float field;
-    int ownerId;
     boolean isActive;
 
-    public EmptyField(int ownerId, Point2D location, Dimension2D size) {
+    public EmptyField( Point2D location, Dimension2D size) {
         field = new Ellipse2D.Float();
-        this.ownerId = ownerId;
         field.setFrame(location, size);
         isActive = false;
     }
 
     @Override
     public int getOwnerId() {
-        return ownerId;
+        return -1;
     }
 
     @Override

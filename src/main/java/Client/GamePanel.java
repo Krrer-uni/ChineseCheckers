@@ -32,9 +32,11 @@ public class GamePanel extends JPanel {
                 (int) (windowWidth * 0.25), (int) (windowHeight * 0.1));
 //        add(skipbutton);
         addMouseListener(new GameMouseListener());
+        skipbutton.addActionListener(new SkipButtonListener());
         currentPlayer = 0;
 
     }
+
 
     public void setGameServerMediator(GameServerMediator mediator) {
         this.mediator = mediator;
@@ -59,7 +61,7 @@ public class GamePanel extends JPanel {
                 else if (field.getOwnerId() == 4) graphics2D.setPaint(Color.PINK);
                 else if (field.getOwnerId() == 5) graphics2D.setPaint(Color.YELLOW);
                 else if (field.getOwnerId() == 6) graphics2D.setPaint(Color.MAGENTA);
-                graphics2D.fill(field.getField());
+                if(field instanceof PlayerField) graphics2D.fill(field.getField());
                 if (field.isActive()) {
                     graphics2D.setPaint(Color.black);
                     graphics2D.draw(field.getField());
