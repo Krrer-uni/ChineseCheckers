@@ -152,22 +152,114 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//DOWN-LEFT JUMP
-		/*
-		if( banned_dir != 1 && start_y - 1 > 0) {
-			if(tab_pom.get(start_y).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y).get(start_x-1).getOwnerId() > 0 &&
-				tab_pom.get(start_y).get(start_x-2) instanceof PlayerField && tab_pom.get(start_y).get(start_x-2).getOwnerId() == 0)
-			{
-				tab[i][0] = start_x-2;
-				tab[i][1] = start_y;
-				i++;
-				tab[i][0] = -1;
-				tab[i][1] = -1;
-				inif = true;
-				tab = checkCombo(tab, start_x-2, start_y, 4);	
+		if( banned_dir != 1 ) {
+			if(start_y == 0 || start_y == 1 || (start_y >= 8 && start_y <= 10) ) {
+				if(tab_pom.get(start_y+1).get(start_x) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x).getOwnerId() > 0 &&
+						tab_pom.get(start_y+2).get(start_x) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x).getOwnerId() == 0)
+					{
+						tab[i][0] = start_x;
+						tab[i][1] = start_y+2;
+						i++;
+						tab[i][0] = -1;
+						tab[i][1] = -1;
+						inif = true;
+						tab = checkCombo(tab, start_x, start_y+2, 4);	
+					}
 			}
+			else if(start_y == 2) {
+				if(tab_pom.get(start_y+1).get(start_x) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x).getOwnerId() > 0 &&
+						tab_pom.get(start_y+2).get(start_x+4) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x+4).getOwnerId() == 0)
+					{
+						tab[i][0] = start_x+4;
+						tab[i][1] = start_y+2;
+						i++;
+						tab[i][0] = -1;
+						tab[i][1] = -1;
+						inif = true;
+						tab = checkCombo(tab, start_x+4, start_y+2, 4);	
+					}
+			}
+			else if(start_y == 3) {
+				if(tab_pom.get(start_y+1).get(start_x+4) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x+4).getOwnerId() > 0 &&
+						tab_pom.get(start_y+2).get(start_x+3) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x+3).getOwnerId() == 0)
+					{
+						tab[i][0] = start_x+3;
+						tab[i][1] = start_y+2;
+						i++;
+						tab[i][0] = -1;
+						tab[i][1] = -1;
+						inif = true;
+						tab = checkCombo(tab, start_x+3, start_y+2, 4);	
+					}
+			}
+			else if(start_y >= 4 && start_y <= 6 && start_x >= 2) {
+				if(tab_pom.get(start_y+1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x-1).getOwnerId() > 0 &&
+						tab_pom.get(start_y+2).get(start_x-2) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-2).getOwnerId() == 0)
+					{
+						tab[i][0] = start_x-2;
+						tab[i][1] = start_y+2;
+						i++;
+						tab[i][0] = -1;
+						tab[i][1] = -1;
+						inif = true;
+						tab = checkCombo(tab, start_x-2, start_y+2, 4);	
+					}
+			}
+			else if(start_y == 7 && start_x >= 1) {
+				if(tab_pom.get(start_y+1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x-1).getOwnerId() > 0 &&
+						tab_pom.get(start_y+2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-1).getOwnerId() == 0)
+					{
+						tab[i][0] = start_x-1;
+						tab[i][1] = start_y+2;
+						i++;
+						tab[i][0] = -1;
+						tab[i][1] = -1;
+						inif = true;
+						tab = checkCombo(tab, start_x-1, start_y+2, 4);	
+					}
+			}
+			else if(start_y == 11 && (start_x >= 5 && start_x <= 8)) {
+				if(tab_pom.get(start_y+1).get(start_x) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x).getOwnerId() > 0 &&
+						tab_pom.get(start_y+2).get(start_x-5) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-5).getOwnerId() == 0)
+					{
+						tab[i][0] = start_x-5;
+						tab[i][1] = start_y+2;
+						i++;
+						tab[i][0] = -1;
+						tab[i][1] = -1;
+						inif = true;
+						tab = checkCombo(tab, start_x-5, start_y+2, 4);	
+					}
+			}
+			else if(start_y == 12 && (start_x >= 6 && start_x <= 8)) {
+				if(tab_pom.get(start_y+1).get(start_x-5) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x-5).getOwnerId() > 0 &&
+						tab_pom.get(start_y+2).get(start_x-6) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-6).getOwnerId() == 0)
+					{
+						tab[i][0] = start_x-6;
+						tab[i][1] = start_y+2;
+						i++;
+						tab[i][0] = -1;
+						tab[i][1] = -1;
+						inif = true;
+						tab = checkCombo(tab, start_x-6, start_y+2, 4);	
+					}
+			}
+			else if((start_y == 13 || start_y == 14) && (start_x >= 2)) {
+				if(tab_pom.get(start_y+1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x-1).getOwnerId() > 0 &&
+						tab_pom.get(start_y+2).get(start_x-2) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-2).getOwnerId() == 0)
+					{
+						tab[i][0] = start_x-2;
+						tab[i][1] = start_y+2;
+						i++;
+						tab[i][0] = -1;
+						tab[i][1] = -1;
+						inif = true;
+						tab = checkCombo(tab, start_x-2, start_y+2, 4);	
+					}
+			}
+			
 				
 		}
-		*/
 		return tab;
 		
 	}
