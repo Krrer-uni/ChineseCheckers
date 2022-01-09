@@ -14,7 +14,7 @@ public class ChineseCheckersRules implements GameRules {
 	
 	public ChineseCheckersRules(int playerNumber) {
 		if(this.isPlayerNumberGood(playerNumber)) {
-			BoardBuilder boardBuilder = new BoardBuilder(new Dimension(100, 100));
+			BoardBuilder boardBuilder = new BoardBuilder(new Dimension(500, 500));
 	        boardBuilder.setLayout(playerNumber);
 	        board = boardBuilder.getBoard();
 		}

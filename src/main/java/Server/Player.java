@@ -18,7 +18,24 @@ public class Player implements Runnable {
         this.socket = socket;
         this.playerId = playerId;
         this.game = game;
+        this.state = new PlayerStateWait();
     }
+	
+	public PlayerState getState() {
+		return state;
+	}
+	
+	public void goNextState() {
+		state = state.nextState();
+		if(state instanceof PlayerStateMove) {
+			for(Player player : game.getPlayerList())
+				player.output.println("NEXT " + playerId);
+		}
+	}
+	
+	public void goWinState() {
+		state = state.winState();
+	}
 	
 	@Override
 	public void run() {
@@ -60,7 +77,9 @@ public class Player implements Runnable {
             if (game.move(x1, y1, x2, y2, playerId)) {
             	for(Player player : game.getPlayerList()) {
                 	player.output.println("PLAYER " + playerId + " MOVED " + x1 + " " + y1 + " " + x2 + " " + y2);
+                	
                 }
+            	game.nextToMove(playerId);
             }	
             /*
             if (hasWinner()) {

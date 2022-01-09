@@ -2,5 +2,6 @@ package Server;
 
 public interface PlayerState {
 	PlayerState getState();
-	void
+	PlayerState nextState();
+	PlayerState winState();
 }
