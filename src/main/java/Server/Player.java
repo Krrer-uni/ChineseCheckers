@@ -12,7 +12,7 @@ public class Player implements Runnable {
 	Socket socket;
 	Scanner input;
 	PrintWriter output;
-	//PlayerState state;
+	PlayerState state;
 	
 	public Player(Socket socket, int playerId, Game game) {
         this.socket = socket;
@@ -57,7 +57,7 @@ public class Player implements Runnable {
     private void processMoveCommand(int x1, int y1, int x2, int y2) {
         try {
         	
-            if (game.move(x1, y1, x2, y2, this)) {
+            if (game.move(x1, y1, x2, y2, playerId)) {
             	for(Player player : game.getPlayerList()) {
                 	player.output.println("PLAYER " + playerId + " MOVED " + x1 + " " + y1 + " " + x2 + " " + y2);
                 }

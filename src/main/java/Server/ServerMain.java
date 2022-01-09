@@ -20,11 +20,12 @@ public class ServerMain {
             	int i = 1;
             	while(i<=number) {
             		Player p = new Player(listener.accept(), i, game);
-            		i++;
             		game.addPlayer(p);
             		System.out.println("Dodano " + i + "gracza");
+            		i++;
             		pool.execute(p);
             	}
+            	game.start();
             }
             catch (WrongPlayerNumber ex){
             	System.out.println("Wrong number of players!");
