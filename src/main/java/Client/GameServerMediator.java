@@ -21,8 +21,15 @@ public class GameServerMediator {
 	}
 
 	public void gameInit(int playerCount,int playerId){
-		gamePanel.setGameLayout(playerCount);
+		gamePanel.setBoardBuilderLayout(playerCount);
 		gamePanel.setPlayerId(playerId);
 	}
 
+	public void setCurrentPlayer(int startingPlyer){
+		gamePanel.setCurrentPlayer(startingPlyer);
+	}
+
+	public void sendSkip(){
+		server.sendSkip();
+	}
 }

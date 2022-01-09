@@ -39,6 +39,8 @@ public class Client2ServerConnection {
                     //window.message("Opponent moved, your turn");
                 } else if (response.startsWith("WELCOME")) {
                     mediator.gameInit(Integer.parseInt(commands[2]),Integer.parseInt(commands[1]));
+                } else if (response.startsWith("NEXT")) {
+                    mediator.setCurrentPlayer(Integer.parseInt(commands[1]));
                 }
             }
             out.println("QUIT");
@@ -54,6 +56,9 @@ public class Client2ServerConnection {
         System.out.println("MOVE " + rowSource + " " + columnSource + " " + rowTarget + " " + columnTarget);
     }
 
+    public void sendSkip(){
+        out.println("SKIP");
+    }
 
     // KOMENDA
 }

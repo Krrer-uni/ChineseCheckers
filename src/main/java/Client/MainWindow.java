@@ -16,7 +16,7 @@ public class MainWindow extends JFrame {
         this.gamePanel = new GamePanel(getWidth(),getHeight());
         add(gamePanel,BorderLayout.CENTER);
     }
-    
+
     public void setGameServerMediator(GameServerMediator mediator) { //nwm czy dobre
     	this.mediator=mediator;
     }
