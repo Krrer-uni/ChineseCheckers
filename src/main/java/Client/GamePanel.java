@@ -79,50 +79,34 @@ public class GamePanel extends JPanel {
         int sourceColumn = 0;
         int sourceRow = 0;
 
-        boolean choosingTarget = true;
+        boolean choosingSource = true;
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if (choosingTarget) {
-                for (ArrayList<Field> row : board.fieldArray) {
-                    for (Field field : row) {
-                        if (field.getField().contains(e.getX(), e.getY())) {
-                            if(field.getOwnerId() == playerId) {
-                                System.out.println("wybrano " + row.indexOf(field) + "," + board.fieldArray.indexOf(row));
-                                board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
-                                sourceColumn = row.indexOf(field);
-                                sourceRow = board.fieldArray.indexOf(row);
-                                choosingTarget = false;
-                                field.setActive(true);
-                                break;
-
-                            }
-                        }
-                    }
-                }
-            } else for (ArrayList<Field> row : board.fieldArray) {
+            for (ArrayList<Field> row : board.fieldArray) {
                 for (Field field : row) {
                     if (field.getField().contains(e.getX(), e.getY())) {
-                        if(field.getOwnerId() == 0){
+                        if(field.getOwnerId() == playerId) {
+                            System.out.println("wybrano " + row.indexOf(field) + "," + board.fieldArray.indexOf(row));
+                            board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
+                            sourceColumn = row.indexOf(field);
+                            sourceRow = board.fieldArray.indexOf(row);
+                            choosingSource = false;
+                            field.setActive(true);
+                            break;
+                        }else if(field.getOwnerId() == 0 && !choosingSource){
                             int targetColumn = row.indexOf(field);
                             int targetRow = board.fieldArray.indexOf(row);
                             board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
                             mediator.sendMove(sourceColumn, sourceRow, targetColumn, targetRow);
-                            choosingTarget = true;
+                            choosingSource = true;
                             break;
-                        } else if(field.getOwnerId() == playerId) {
-                                System.out.println("wybrano ponownie " + row.indexOf(field) + "," + board.fieldArray.indexOf(row));
-                                board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
-                                sourceColumn = row.indexOf(field);
-                                sourceRow = board.fieldArray.indexOf(row);
-                                choosingTarget = false;
-                                field.setActive(true);
-                                break;
                         }
                     }
                 }
             }
             repaint();
+
         }
 
 
