@@ -6,7 +6,6 @@ import java.awt.*;
 public class MainWindow extends JFrame {
     private static int windowSize = 500;
     private GamePanel gamePanel;
-    private GameServerMediator mediator; //do wyrzucenia
     
     public MainWindow(){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -16,10 +15,7 @@ public class MainWindow extends JFrame {
         this.gamePanel = new GamePanel(getWidth(),getHeight());
         add(gamePanel,BorderLayout.CENTER);
     }
-    
-    public void setGameServerMediator(GameServerMediator mediator) { //nwm czy dobre
-    	this.mediator=mediator;
-    }
+
     
     public GamePanel getGamePanel(){
     	return gamePanel;

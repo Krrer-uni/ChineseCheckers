@@ -12,6 +12,7 @@ public class GamePanel extends JPanel {
     BoardBuilder boardBuilder;
     GameServerMediator mediator;
     int playerId;
+    int currentPlayer;
 
     public GamePanel(int windowWidth, int windowHeight) {
 
@@ -27,7 +28,7 @@ public class GamePanel extends JPanel {
     	this.mediator=mediator;
     }
 
-    public void setGameLayout(int playerCount){
+    public void setBoardBuilderLayout(int playerCount){
         boardBuilder.setLayout(playerCount);
         board = boardBuilder.getBoard();
     }
@@ -58,6 +59,8 @@ public class GamePanel extends JPanel {
     public void setPlayerId(int playerId){
         this.playerId = playerId;
     }
+
+    public void setCurrentPlayer(int currentPlayer) {this.currentPlayer = currentPlayer;}
 
     public void updateBoard(int sourceRow, int sourceColumn, int targetRow, int targetColumn){
         board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
@@ -94,7 +97,7 @@ public class GamePanel extends JPanel {
                             choosingSource = false;
                             field.setActive(true);
                             break;
-                        }else if(field.getOwnerId() == 0 && !choosingSource){
+                        }else if(field.getOwnerId() == 0 && !choosingSource && (playerId == currentPlayer)){
                             int targetColumn = row.indexOf(field);
                             int targetRow = board.fieldArray.indexOf(row);
                             board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
@@ -106,9 +109,6 @@ public class GamePanel extends JPanel {
                 }
             }
             repaint();
-
         }
-
-
     }
 }
