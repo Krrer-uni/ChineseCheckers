@@ -261,43 +261,43 @@ public class BoardBuilder {
                     -1, -1, -1, -1, 6, 6, 6, 6, -1, -1, -1, -1, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    1, 1, 1, 1, 0, 0, 0, 0, 0, 4, 4, 4, 4
+                    1, 1, 1, 1, 0, 0, 0, 0, 0, 5, 5, 5, 5
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    1, 1, 1, 0, 0, 0, 0, 0, 0, 4, 4, 4, -1
+                    1, 1, 1, 0, 0, 0, 0, 0, 0, 5, 5, 5, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    -1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 4, 4, -1
+                    -1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 5, 5, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4, -1, -1
+                    -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, -1, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
                     -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 3, -1, -1
+                    -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 4, -1, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    -1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 3, 3, -1
+                    -1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 4, 4, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    2, 2, 2, 0, 0, 0, 0, 0, 0, 3, 3, 3, -1
+                    2, 2, 2, 0, 0, 0, 0, 0, 0, 4, 4, 4, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    2, 2, 2, 2, 0, 0, 0, 0, 0, 3, 3, 3, 3
+                    2, 2, 2, 2, 0, 0, 0, 0, 0, 4, 4, 4, 4
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, 5, 5, 5, 5, -1, -1, -1, -1, -1
+                    -1, -1, -1, -1, 3, 3, 3, 3, -1, -1, -1, -1, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, -1, 5, 5, 5, -1, -1, -1, -1, -1
+                    -1, -1, -1, -1, -1, 3, 3, 3, -1, -1, -1, -1, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, -1, 5, 5, -1, -1, -1, -1, -1, -1
+                    -1, -1, -1, -1, -1, 3, 3, -1, -1, -1, -1, -1, -1
             )));
             layout.add(new ArrayList<>(Arrays.asList(
-                    -1, -1, -1, -1, -1, -1, 5, -1, -1, -1, -1, -1, -1
+                    -1, -1, -1, -1, -1, -1, 3, -1, -1, -1, -1, -1, -1
             )));
         }
     }
