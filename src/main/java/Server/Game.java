@@ -7,7 +7,6 @@ public class Game {
 	GameRules gameRules;
 	private int numberPlayers;
 	ArrayList<Player> players;
-	private int playerToMove;
 	private int numberPlayersFinished;
 	
 	public Game (GameRules gameRules) {
@@ -35,9 +34,6 @@ public class Game {
 		return players;
 	}
 	
-	public int getPlayerToMove() {
-		return playerToMove;
-	}
 	
 	public int getNumberPlayersFinished() {
 		return numberPlayersFinished;
@@ -45,12 +41,12 @@ public class Game {
 	
 	public void start() {
 		Random random = new Random();
-		this.playerToMove = random.nextInt(numberPlayers) + 1;
-		players.get(playerToMove-1).goNextState();
+		int playerToStart = random.nextInt(numberPlayers) + 1;
+		players.get(playerToStart-1).goNextState();
 	}
 	
 	public boolean move (int x1, int y1, int x2, int y2, int playerId) {
-		if(playerId == playerToMove) {
+		if(players.get(playerId-1).getState() instanceof PlayerStateMove) {
 			if(gameRules.isMoveGood(x1, y1, x2, y2, playerId, numberPlayers))
 				return true;
 		}
@@ -77,9 +73,16 @@ public class Game {
 			if(players.get(i-1).getState() instanceof PlayerStateWait) {
 				System.out.println("zmieniam stan");
 				players.get(i-1).goNextState();
-				playerToMove = i;
 				break;
 			}
+			i = (i + 1) % numberPlayers;
+			if (i == 0) i = numberPlayers;
+		}
+		if (i == previousId) {
+			players.get(previousId-1).goWinState();
+			//the one who lost gets notified
+			players.get(previousId-1).sendEndInfo(++numberPlayersFinished);
+			System.out.println("THE END OF GAME");
 		}
 		//jak tu wyjdzie to nie ma z kim grać :(
 	}
