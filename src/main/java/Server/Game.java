@@ -8,10 +8,12 @@ public class Game {
 	private int numberPlayers;
 	ArrayList<Player> players;
 	private int playerToMove;
+	private int numberPlayersFinished;
 	
 	public Game (GameRules gameRules) {
 		this.gameRules = gameRules;
 		players = new ArrayList<Player>();
+		this.numberPlayersFinished = 0;
 	}
 	
 	public void setGameRules (GameRules gameRules) {
@@ -37,6 +39,10 @@ public class Game {
 		return playerToMove;
 	}
 	
+	public int getNumberPlayersFinished() {
+		return numberPlayersFinished;
+	}
+	
 	public void start() {
 		Random random = new Random();
 		this.playerToMove = random.nextInt(numberPlayers) + 1;
@@ -45,10 +51,22 @@ public class Game {
 	
 	public boolean move (int x1, int y1, int x2, int y2, int playerId) {
 		if(playerId == playerToMove) {
-			if(gameRules.isMoveGood(x1, y1, x2, y2))
+			if(gameRules.isMoveGood(x1, y1, x2, y2, playerId, numberPlayers))
 				return true;
 		}
 		return false;
+	}
+	
+	public boolean hasPlayerEnded (int playerId) {
+		if(gameRules.hasEnded(numberPlayers, playerId)) {
+			numberPlayersFinished++;
+			return true;
+		}
+		return false;			
+	}
+	
+	public void setWin(int playerId) {
+		players.get(playerId-1).goWinState();
 	}
 	
 	public void nextToMove(int previousId) {

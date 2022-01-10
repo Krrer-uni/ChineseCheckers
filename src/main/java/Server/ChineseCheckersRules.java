@@ -86,7 +86,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		ArrayList<ArrayList<Field>> tab_pom= board.getFieldArray();
 		//RIGHT JUMP
-		if( banned_dir != 5 && (start_x < tab_pom.get(start_y).size() - 2) && 
+		if( i < 999 && banned_dir != 5 && (start_x < tab_pom.get(start_y).size() - 2) && 
 				(tab_pom.get(start_y).get(start_x+1) instanceof PlayerField) && (tab_pom.get(start_y).get(start_x+1).getOwnerId() > 0) && 
 				(tab_pom.get(start_y).get(start_x+2) instanceof PlayerField) && (tab_pom.get(start_y).get(start_x+2).getOwnerId() == 0) ) {
 			tab[i][0] = start_x+2;
@@ -106,7 +106,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//LEFT JUMP
-		if( banned_dir != 2 && start_x - 1 > 0 && 
+		if( i < 999 &&  banned_dir != 2 && start_x - 1 > 0 && 
 				tab_pom.get(start_y).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y).get(start_x-1).getOwnerId() > 0 &&
 				tab_pom.get(start_y).get(start_x-2) instanceof PlayerField && tab_pom.get(start_y).get(start_x-2).getOwnerId() == 0) {
 			tab[i][0] = start_x-2;
@@ -126,7 +126,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//DOWN-RIGHT JUMP
-		if( banned_dir != 6 && start_x+1 < tab_pom.get(start_y).size() && start_y+2 < tab_pom.size()) {
+		if( i < 999 &&  banned_dir != 6 && start_x+1 < tab_pom.get(start_y).size() && start_y+2 < tab_pom.size()) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y+1).get(start_x) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x).getOwnerId() > 0 &&
 						tab_pom.get(start_y+2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x+1).getOwnerId() == 0)
@@ -163,7 +163,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//DOWN-LEFT JUMP
-		if( banned_dir != 1 && start_x > 0 && start_y+2 < tab_pom.size()) {
+		if( i < 999 &&  banned_dir != 1 && start_x > 0 && start_y+2 < tab_pom.size()) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y+1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x-1).getOwnerId() > 0 &&
 						tab_pom.get(start_y+2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-1).getOwnerId() == 0)
@@ -200,7 +200,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//UP-RIGHT JUMP
-		if( banned_dir != 4 && start_x+1 < tab_pom.get(start_y).size() && start_y-1 > 0) {
+		if( i < 999 &&  banned_dir != 4 && start_x+1 < tab_pom.get(start_y).size() && start_y-1 > 0) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y-1).get(start_x) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x).getOwnerId() > 0 &&
 						tab_pom.get(start_y-2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x+1).getOwnerId() == 0)
@@ -237,7 +237,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//UP-LEFT JUMP
-		if( banned_dir != 3 && start_x > 0 && start_y-1 > 0) {
+		if( i < 999 &&  banned_dir != 3 && start_x > 0 && start_y-1 > 0) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y-1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x-1).getOwnerId() > 0 &&
 						tab_pom.get(start_y-2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x-1).getOwnerId() == 0)
@@ -278,24 +278,62 @@ public class ChineseCheckersRules implements GameRules {
 	}
 
 	@Override
-	public boolean isMoveGood(int start_x, int start_y, int end_x, int end_y) {
-		int [][] tab = this.availableMoves(start_x, start_y);
-		int i = 0;
-		while(tab[i][0] != -1) {
-			System.out.printf("%d-%d,%d-%d\n", tab[i][0], end_x, tab[i][1], end_y);
-			if(tab[i][0] == end_x && tab[i][1] == end_y) {
-				Rectangle2D tempFrameSource = board.getFieldArray().get(start_y).get(start_x).getField().getFrame();
-		        Rectangle2D tempFrameTarget = board.getFieldArray().get(end_y).get(end_x).getField().getFrame();
-		        board.getFieldArray().get(start_y).get(start_x).getField().setFrame(tempFrameTarget);
-		        board.getFieldArray().get(end_y).get(end_x).getField().setFrame(tempFrameSource);
-
-		        Field tempField = board.getFieldArray().get(start_y).get(start_x);
-		        board.getFieldArray().get(start_y).set(start_x, board.getFieldArray().get(end_y).get(end_x));
-		        board.getFieldArray().get(end_y).set(end_x, tempField);
-				return true;
+	public boolean isMoveGood(int start_x, int start_y, int end_x, int end_y, int playerId, int playerCount) {
+		if ( isInWinningTriangle(start_x, start_y, end_x, end_y, playerId, playerCount ) ) {
+			int [][] tab = this.availableMoves(start_x, start_y);
+			int i = 0;
+			while(tab[i][0] != -1) {
+				System.out.printf("%d-%d,%d-%d\n", tab[i][0], end_x, tab[i][1], end_y);
+				if(tab[i][0] == end_x && tab[i][1] == end_y) {
+					Rectangle2D tempFrameSource = board.getFieldArray().get(start_y).get(start_x).getField().getFrame();
+			        Rectangle2D tempFrameTarget = board.getFieldArray().get(end_y).get(end_x).getField().getFrame();
+			        board.getFieldArray().get(start_y).get(start_x).getField().setFrame(tempFrameTarget);
+			        board.getFieldArray().get(end_y).get(end_x).getField().setFrame(tempFrameSource);
+	
+			        Field tempField = board.getFieldArray().get(start_y).get(start_x);
+			        board.getFieldArray().get(start_y).set(start_x, board.getFieldArray().get(end_y).get(end_x));
+			        board.getFieldArray().get(end_y).set(end_x, tempField);
+					return true;
+				}
+				i++;
 			}
-			i++;
+			return false;
 		}
+		System.out.println("trojkat");
 		return false;
 	}
+	
+	public boolean isInWinningTriangle(int start_x, int start_y, int end_x, int end_y, int playerId, int playerCount) {
+		WinningTriangle triangle = new WinningTriangle();
+		for (FieldCords point : triangle.getTriangle(playerCount, playerId)) {
+			int y_pom = point.getY();
+			int x_pom = point.getX();
+			if(start_x == x_pom && start_y == y_pom)	{
+				for (FieldCords point_a : triangle.getTriangle(playerCount, playerId)) {
+					int y = point_a.getY();
+					int x = point_a.getX();
+					if(end_x == x && end_y == y)
+						return true;
+				}
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean hasEnded(int playerCount, int playerId) {
+		WinningTriangle triangle = new WinningTriangle();
+		for (FieldCords point : triangle.getTriangle(playerCount, playerId)) {
+			int y_pom = point.getY();
+			int x_pom = point.getX();
+			if (board.getFieldArray().get(y_pom).get(x_pom) instanceof PlayerField 
+					&& board.getFieldArray().get(y_pom).get(x_pom).getOwnerId() == playerId) {
+			
+			}	
+			else 
+				return false;
+		}
+		return true;
+	}
 }
+
