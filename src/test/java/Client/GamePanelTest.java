@@ -55,6 +55,7 @@ public class GamePanelTest {
         panel.setGameServerMediator(mediator);
     }
 
+
 //    class MediatorMock implements GameServerMediator{
 //
 //

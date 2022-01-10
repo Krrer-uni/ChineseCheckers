@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/wryme/Repos/TP/ChineseCheckers/src/main/java/Server</OriginalElement>
+  <nodes>
+    <node x="141.08379576659036" y="33.5">Server.PlayerStateWin</node>
+    <node x="-60.54858409610986" y="-54.63586956521743">Server.PlayerState</node>
+    <node x="412.65910087719305" y="347.6521739130435">Server.AllAllowedChineseCheckersRules</node>
+    <node x="76.77401315789473" y="332.0">Server.Player</node>
+    <node x="46.21151315789473" y="640.5527950310558">Server.ServerMain</node>
+    <node x="777.3257675438597" y="249.0">Server.WinningTriangle</node>
+    <node x="681.659100877193" y="301.0">Server.ChineseCheckersRules</node>
+    <node x="105.71151315789473" y="494.5">Server.Game</node>
+    <node x="279.6924914187643" y="121.63586956521743">Server.PlayerStateMove</node>
+    <node x="416.46966533180785" y="249.0">Server.GameRules</node>
+    <node x="766.3257675438597" y="99.43478260869566">Server.FieldCords</node>
+    <node x="403.40625" y="518.0">Server.GameRulesFactory</node>
+    <node x="52.52711466165414" y="121.63586956521745">Server.PlayerStateWait</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Server.PlayerStateMove" target="Server.PlayerState" relationship="REALIZATION">
+      <point x="61.125" y="-15.5" />
+      <point x="422.3174914187643" y="-39.13586956521743" />
+      <point x="230.87028508771934" y="-39.13586956521743" />
+      <point x="230.87028508771934" y="-47.0" />
+      <point x="44.45141590389014" y="-47.0" />
+      <point x="42.0" y="15.5" />
+    </edge>
+    <edge source="Server.PlayerStateMove" target="Server.PlayerStateWin" relationship="CREATE">
+      <point x="20.375" y="-15.5" />
+      <point x="381.5674914187643" y="131.5" />
+      <point x="315.34466533180773" y="131.5" />
+      <point x="315.34466533180773" y="40.0" />
+      <point x="217.08379576659036" y="40.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.ServerMain" target="Server.GameRulesFactory" relationship="CREATE">
+      <point x="42.0" y="-15.5" />
+      <point x="151.21151315789473" y="655.0" />
+      <point x="490.40625" y="655.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.GameRulesFactory" target="Server.ChineseCheckersRules" relationship="CREATE">
+      <point x="58.0" y="-15.5" />
+      <point x="548.40625" y="415.0" />
+      <point x="779.659100877193" y="415.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.Player" target="Server.PlayerStateMove" relationship="DEPENDENCY">
+      <point x="34.5" y="-15.5" />
+      <point x="157.27401315789473" y="311.0" />
+      <point x="361.1924914187643" y="311.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.Player" target="Server.PlayerStateWait" relationship="CREATE">
+      <point x="11.5" y="-15.5" />
+      <point x="134.27401315789473" y="127.24999999999996" />
+      <point x="91.77711466165414" y="127.24999999999996" />
+      <point x="-39.25" y="15.5" />
+    </edge>
+    <edge source="Server.WinningTriangle" target="Server.FieldCords" relationship="TO_MANY">
+      <point x="40.25" y="-15.5" />
+      <point x="898.0757675438597" y="120.15217391304347" />
+      <point x="857.8257675438597" y="120.15217391304347" />
+      <point x="30.5" y="15.5" />
+    </edge>
+    <edge source="Server.Game" target="Server.GameRules" relationship="DEPENDENCY">
+      <point x="39.8125" y="-15.5" />
+      <point x="191.02401315789473" y="510.0" />
+      <point x="371.7243182684974" y="510.0" />
+      <point x="371.7243182684974" y="290.1304347826087" />
+      <point x="479.46966533180785" y="290.1304347826087" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.ChineseCheckersRules" target="Server.GameRules" relationship="REALIZATION">
+      <point x="-65.33333333333331" y="-15.5" />
+      <point x="521.4696653318078" y="301.0" />
+      <point x="42.0" y="15.5" />
+    </edge>
+    <edge source="Server.PlayerStateWait" target="Server.PlayerState" relationship="REALIZATION">
+      <point x="-39.25" y="-15.5" />
+      <point x="91.77711466165414" y="-37.0" />
+      <point x="230.87028508771934" y="-37.0" />
+      <point x="230.87028508771934" y="-47.0" />
+      <point x="44.45141590389014" y="-47.0" />
+      <point x="42.0" y="15.5" />
+    </edge>
+    <edge source="Server.Game" target="Server.Player" relationship="TO_MANY">
+      <point x="5.6875" y="-15.5" />
+      <point x="156.89901315789473" y="389.0" />
+      <point x="157.27401315789473" y="389.0" />
+      <point x="34.5" y="15.5" />
+    </edge>
+    <edge source="Server.ChineseCheckersRules" target="Server.WinningTriangle" relationship="CREATE">
+      <point x="65.33333333333331" y="-15.5" />
+      <point x="844.9924342105264" y="323.6521739130435" />
+      <point x="857.8257675438597" y="323.6521739130435" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.GameRulesFactory" target="Server.GameRules" relationship="DEPENDENCY">
+      <point x="-58.0" y="-15.5" />
+      <point x="432.40625" y="405.0" />
+      <point x="385.6373617467583" y="405.0" />
+      <point x="385.6373617467583" y="311.0" />
+      <point x="498.6001001144166" y="311.0" />
+      <point x="498.6001001144166" y="280.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.GameRulesFactory" target="Server.AllAllowedChineseCheckersRules" relationship="CREATE">
+      <point x="0.0" y="-15.5" />
+      <point x="490.40625" y="378.6521739130435" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.Game" target="Server.PlayerStateWait" relationship="DEPENDENCY">
+      <point x="-39.8125" y="-15.5" />
+      <point x="111.39901315789473" y="520.7857142857142" />
+      <point x="1.511983082706763" y="520.7857142857142" />
+      <point x="1.511983082706763" y="143.69565217391306" />
+      <point x="91.77711466165414" y="143.69565217391306" />
+      <point x="-39.25" y="15.5" />
+    </edge>
+    <edge source="Server.Game" target="Server.GameRules" relationship="TO_ONE">
+      <point x="28.4375" y="-15.5" />
+      <point x="191.02401315789473" y="494.5" />
+      <point x="191.02401315789473" y="462.5" />
+      <point x="320.5003289473684" y="462.5" />
+      <point x="320.5003289473684" y="260.5652173913044" />
+      <point x="437.46966533180785" y="260.5652173913044" />
+      <point x="-42.0" y="15.5" />
+    </edge>
+    <edge source="Server.PlayerStateWin" target="Server.PlayerState" relationship="REALIZATION">
+      <point x="0.0" y="-15.5" />
+      <point x="217.08379576659036" y="-37.0" />
+      <point x="230.87028508771934" y="-37.0" />
+      <point x="230.87028508771934" y="-47.0" />
+      <point x="44.45141590389014" y="-47.0" />
+      <point x="42.0" y="15.5" />
+    </edge>
+    <edge source="Server.PlayerStateMove" target="Server.PlayerStateWait" relationship="CREATE">
+      <point x="-61.125" y="-15.5" />
+      <point x="300.0674914187643" y="131.0217391304347" />
+      <point x="288.0674914187643" y="131.0217391304347" />
+      <point x="288.0674914187643" y="217.0" />
+      <point x="91.77711466165414" y="217.0" />
+      <point x="-39.25" y="15.5" />
+    </edge>
+    <edge source="Server.PlayerStateWait" target="Server.PlayerStateMove" relationship="CREATE">
+      <point x="47.711184210526255" y="15.5" />
+      <point x="178.7382988721804" y="143.69565217391306" />
+      <point x="170.93705663615555" y="143.69565217391306" />
+      <point x="170.93705663615555" y="127.24999999999996" />
+      <point x="340.8174914187643" y="127.24999999999996" />
+      <point x="-20.375" y="-15.5" />
+    </edge>
+    <edge source="Server.ServerMain" target="Server.Game" relationship="CREATE">
+      <point x="0.0" y="-15.5" />
+      <point x="109.21151315789473" y="645.2857142857142" />
+      <point x="151.21151315789473" y="645.2857142857142" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.ChineseCheckersRules" target="Server.FieldCords" relationship="DEPENDENCY">
+      <point x="0.0" y="-15.5" />
+      <point x="766.8257675438597" y="301.0" />
+      <point x="766.8257675438597" y="227.0" />
+      <point x="796.8990131578947" y="227.0" />
+      <point x="796.8990131578947" y="217.0" />
+      <point x="796.8257675438597" y="217.0" />
+      <point x="-30.5" y="15.5" />
+    </edge>
+    <edge source="Server.WinningTriangle" target="Server.FieldCords" relationship="CREATE">
+      <point x="-40.25" y="-15.5" />
+      <point x="817.5757675438597" y="227.0" />
+      <point x="796.8990131578947" y="227.0" />
+      <point x="796.8990131578947" y="217.0" />
+      <point x="796.8257675438597" y="217.0" />
+      <point x="-30.5" y="15.5" />
+    </edge>
+    <edge source="Server.Player" target="Server.PlayerState" relationship="TO_ONE">
+      <point x="-11.5" y="-15.5" />
+      <point x="111.27401315789473" y="301.0" />
+      <point x="30.48247180451125" y="301.0" />
+      <point x="30.48247180451125" y="-37.0" />
+      <point x="2.451415903890137" y="-37.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.Player" target="Server.Game" relationship="TO_ONE">
+      <point x="11.5" y="15.5" />
+      <point x="134.27401315789473" y="500.3048780487805" />
+      <point x="145.52401315789473" y="500.3048780487805" />
+      <point x="-5.6875" y="-15.5" />
+    </edge>
+    <edge source="Server.Game" target="Server.PlayerStateMove" relationship="DEPENDENCY">
+      <point x="17.0625" y="-15.5" />
+      <point x="178.51791559691912" y="494.5" />
+      <point x="178.51791559691912" y="357.5" />
+      <point x="310.90677713305" y="357.5" />
+      <point x="310.90677713305" y="131.0217391304347" />
+      <point x="361.1924914187643" y="131.0217391304347" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.Player" target="Server.PlayerState" relationship="DEPENDENCY">
+      <point x="-34.5" y="-15.5" />
+      <point x="88.27401315789473" y="311.0" />
+      <point x="-39.54858409610986" y="311.0" />
+      <point x="-42.0" y="15.5" />
+    </edge>
+    <edge source="Server.Game" target="Server.Player" relationship="DEPENDENCY">
+      <point x="-28.4375" y="-15.5" />
+      <point x="122.77401315789473" y="510.0" />
+      <point x="88.27401315789473" y="510.0" />
+      <point x="-34.5" y="15.5" />
+    </edge>
+    <edge source="Server.Player" target="Server.Game" relationship="DEPENDENCY">
+      <point x="-11.5" y="15.5" />
+      <point x="111.27401315789473" y="500.3048780487805" />
+      <point x="134.14901315789473" y="500.3048780487805" />
+      <point x="-17.0625" y="-15.5" />
+    </edge>
+    <edge source="Server.AllAllowedChineseCheckersRules" target="Server.GameRules" relationship="REALIZATION">
+      <point x="0.0" y="-15.5" />
+      <point x="547.159100877193" y="301.0" />
+      <point x="521.4696653318078" y="301.0" />
+      <point x="42.0" y="15.5" />
+    </edge>
+    <edge source="Server.PlayerStateWait" target="Server.PlayerStateWin" relationship="CREATE">
+      <point x="39.25" y="-15.5" />
+      <point x="170.27711466165414" y="64.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="Server.ServerMain" target="Server.Player" relationship="CREATE">
+      <point x="-42.0" y="-15.5" />
+      <point x="67.21151315789473" y="356.2142857142857" />
+      <point x="88.27401315789473" y="356.2142857142857" />
+      <point x="-34.5" y="15.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0000000000000002" showDependencies="true" x="508.9999999999998" y="301.5882352941174" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
