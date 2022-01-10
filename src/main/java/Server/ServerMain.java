@@ -14,7 +14,8 @@ public class ServerMain {
             Scanner in = new Scanner(System.in);
             System.out.println("Type in number of players: ");
             int number = in.nextInt();
-            Game game = new Game(new ChineseCheckersRules(number));
+            GameRulesFactory factory = new GameRulesFactory();
+            Game game = new Game(factory.getGameRules("ALL ALLOWED", number));
             try {
             	game.setPlayers(number);
             	int i = 1;
