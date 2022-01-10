@@ -44,7 +44,7 @@ public class AllAllowedChineseCheckersRules implements GameRules {
 	}
 
 	@Override
-	public boolean isMoveGood(int start_x, int start_y, int end_x, int end_y) {
+	public boolean isMoveGood(int start_x, int start_y, int end_x, int end_y, int playerId, int playerCount) {
 		int [][] tab = this.availableMoves(start_x, start_y);
 		int i = 0;
 		while(tab[i][0] != -1) {
@@ -62,6 +62,11 @@ public class AllAllowedChineseCheckersRules implements GameRules {
 			}
 			i++;
 		}
+		return false;
+	}
+
+	@Override
+	public boolean hasEnded(int playerCount, int playerId) {
 		return false;
 	}
 
