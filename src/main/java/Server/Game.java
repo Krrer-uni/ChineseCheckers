@@ -79,19 +79,17 @@ public class Game {
 		if (i == 0) i = numberPlayers;
 		while (i != previousId) {
 			if(players.get(i-1).getState() instanceof PlayerStateWait) {
-				System.out.println("zmieniam stan");
+				if(numberPlayers - numberPlayersFinished == 1) {
+					players.get(i-1).goWinState();
+					players.get(i-1).sendEndInfo(++numberPlayersFinished);
+					System.out.println("THE END OF GAME");
+				}
 				players.get(i-1).goNextState();
 				break;
 			}
 			i = (i + 1) % numberPlayers;
 			if (i == 0) i = numberPlayers;
-		}
-		if (i == previousId) {
-			players.get(previousId-1).goWinState();
-			//the one who lost gets notified
-			players.get(previousId-1).sendEndInfo(++numberPlayersFinished);
-			System.out.println("THE END OF GAME");
-		}
+		}	
 	}
 	
 	class WrongPlayerNumber extends Exception {

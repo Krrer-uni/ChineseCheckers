@@ -72,6 +72,15 @@ public class ChineseCheckersRules implements GameRules {
 		return tab;
 	}
 	
+	public boolean hasThisMove(int [][] tab, int x, int y, int size) {
+		for (int i = 0 ; i < size; i++) {
+			if(tab[i][0] == x && tab[i][1] == y) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public int [][] checkCombo(int [][] tab, int start_x, int start_y, int banned_dir, int depth) {
 		/*
 		 * DOWN_LEFT -> banned_dir = 1
@@ -97,13 +106,19 @@ public class ChineseCheckersRules implements GameRules {
 		if( banned_dir != 5 && (start_x < tab_pom.get(start_y).size() - 2) && 
 				(tab_pom.get(start_y).get(start_x+1) instanceof PlayerField) && (tab_pom.get(start_y).get(start_x+1).getOwnerId() > 0) && 
 				(tab_pom.get(start_y).get(start_x+2) instanceof PlayerField) && (tab_pom.get(start_y).get(start_x+2).getOwnerId() == 0) ) {
-			tab[i][0] = start_x+2;
-			tab[i][1] = start_y;
-			i++;
-			tab[i][0] = -1;
-			tab[i][1] = -1;
-			inif = true;
-			tab = checkCombo(tab, start_x+2, start_y, 2, ++depth);				
+			if(hasThisMove(tab, start_x+2, start_y, i)) {
+				
+			}
+			else {
+				tab[i][0] = start_x+2;
+				tab[i][1] = start_y;
+				i++;
+				tab[i][0] = -1;
+				tab[i][1] = -1;
+				inif = true;
+				tab = checkCombo(tab, start_x+2, start_y, 2, ++depth);
+			}
+							
 		}
 		if(inif) {
 			for (i = 0; i < tab.length; i++) {
@@ -117,13 +132,18 @@ public class ChineseCheckersRules implements GameRules {
 		if( banned_dir != 2 && start_x - 1 > 0 && 
 				tab_pom.get(start_y).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y).get(start_x-1).getOwnerId() > 0 &&
 				tab_pom.get(start_y).get(start_x-2) instanceof PlayerField && tab_pom.get(start_y).get(start_x-2).getOwnerId() == 0) {
-			tab[i][0] = start_x-2;
-			tab[i][1] = start_y;
-			i++;
-			tab[i][0] = -1;
-			tab[i][1] = -1;
-			inif = true;
-			tab = checkCombo(tab, start_x-2, start_y, 5, ++depth);	
+			if(hasThisMove(tab, start_x-2, start_y, i)) {
+				
+			}
+			else {
+				tab[i][0] = start_x-2;
+				tab[i][1] = start_y;
+				i++;
+				tab[i][0] = -1;
+				tab[i][1] = -1;
+				inif = true;
+				tab = checkCombo(tab, start_x-2, start_y, 5, ++depth);
+			}
 		}
 		if(inif) {
 			for (i = 0; i < tab.length; i++) {
@@ -137,29 +157,37 @@ public class ChineseCheckersRules implements GameRules {
 		if( banned_dir != 6 && start_x+1 < tab_pom.get(start_y).size() && start_y+2 < tab_pom.size()) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y+1).get(start_x) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x).getOwnerId() > 0 &&
-						tab_pom.get(start_y+2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x+1).getOwnerId() == 0)
-					{
+						tab_pom.get(start_y+2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x+1).getOwnerId() == 0) {
+					if(hasThisMove(tab, start_x+1, start_y+2, i)) {
+						
+					}
+					else {
 						tab[i][0] = start_x+1;
 						tab[i][1] = start_y+2;
 						i++;
 						tab[i][0] = -1;
 						tab[i][1] = -1;
 						inif = true;
-						tab = checkCombo(tab, start_x+1, start_y+2, 3, ++depth);	
-					}
+						tab = checkCombo(tab, start_x+1, start_y+2, 3, ++depth);
+					}		
+				}
 			}
 			else if(start_y%2 == 1) {
 				if(tab_pom.get(start_y+1).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x+1).getOwnerId() > 0 &&
-						tab_pom.get(start_y+2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x+1).getOwnerId() == 0)
-					{
+						tab_pom.get(start_y+2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x+1).getOwnerId() == 0) {
+					if(hasThisMove(tab, start_x+1, start_y+2, i)) {
+						
+					}
+					else {
 						tab[i][0] = start_x+1;
 						tab[i][1] = start_y+2;
 						i++;
 						tab[i][0] = -1;
 						tab[i][1] = -1;
 						inif = true;
-						tab = checkCombo(tab, start_x+1, start_y+2, 3, ++depth);	
+						tab = checkCombo(tab, start_x+1, start_y+2, 3, ++depth);
 					}
+				}
 			}		
 		}
 		if(inif) {
@@ -174,21 +202,28 @@ public class ChineseCheckersRules implements GameRules {
 		if( banned_dir != 1 && start_x > 0 && start_y+2 < tab_pom.size()) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y+1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x-1).getOwnerId() > 0 &&
-						tab_pom.get(start_y+2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-1).getOwnerId() == 0)
-					{
+						tab_pom.get(start_y+2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-1).getOwnerId() == 0) {
+					if(hasThisMove(tab, start_x-1, start_y+2, i)) {
+						
+					}
+					else {
 						tab[i][0] = start_x-1;
 						tab[i][1] = start_y+2;
 						i++;
 						tab[i][0] = -1;
 						tab[i][1] = -1;
 						inif = true;
-						tab = checkCombo(tab, start_x-1, start_y+2, 4, ++depth);	
+						tab = checkCombo(tab, start_x-1, start_y+2, 4, ++depth);
 					}
+				}
 			}
 			else if(start_y%2 == 1) {
 				if(tab_pom.get(start_y+1).get(start_x) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x).getOwnerId() > 0 &&
-						tab_pom.get(start_y+2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-1).getOwnerId() == 0)
-					{
+						tab_pom.get(start_y+2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-1).getOwnerId() == 0) {
+					if(hasThisMove(tab, start_x-1, start_y+2, i)) {
+						
+					}
+					else {
 						tab[i][0] = start_x-1;
 						tab[i][1] = start_y+2;
 						i++;
@@ -197,6 +232,7 @@ public class ChineseCheckersRules implements GameRules {
 						inif = true;
 						tab = checkCombo(tab, start_x-1, start_y+2, 4, ++depth);	
 					}
+				}
 			}		
 		}
 		if(inif) {
@@ -211,8 +247,11 @@ public class ChineseCheckersRules implements GameRules {
 		if( banned_dir != 4 && start_x+1 < tab_pom.get(start_y).size() && start_y-1 > 0) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y-1).get(start_x) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x).getOwnerId() > 0 &&
-						tab_pom.get(start_y-2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x+1).getOwnerId() == 0)
-					{
+						tab_pom.get(start_y-2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x+1).getOwnerId() == 0) {
+					if(hasThisMove(tab, start_x+1, start_y-2, i)) {
+						
+					}
+					else {
 						tab[i][0] = start_x+1;
 						tab[i][1] = start_y-2;
 						i++;
@@ -221,19 +260,24 @@ public class ChineseCheckersRules implements GameRules {
 						inif = true;
 						tab = checkCombo(tab, start_x+1, start_y-2, 1, ++depth);	
 					}
+				}
 			}
 			else if(start_y%2 == 1) {
 				if(tab_pom.get(start_y-1).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x+1).getOwnerId() > 0 &&
-						tab_pom.get(start_y-2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x+1).getOwnerId() == 0)
-					{
+						tab_pom.get(start_y-2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x+1).getOwnerId() == 0) {
+					if(hasThisMove(tab, start_x+1, start_y-2, i)) {
+						
+					}
+					else {
 						tab[i][0] = start_x+1;
 						tab[i][1] = start_y-2;
 						i++;
 						tab[i][0] = -1;
 						tab[i][1] = -1;
 						inif = true;
-						tab = checkCombo(tab, start_x+1, start_y-2, 1, ++depth);	
+						tab = checkCombo(tab, start_x+1, start_y-2, 1, ++depth);
 					}
+				}
 			}		
 		}
 		if(inif) {
@@ -248,8 +292,11 @@ public class ChineseCheckersRules implements GameRules {
 		if( banned_dir != 3 && start_x > 0 && start_y-1 > 0) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y-1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x-1).getOwnerId() > 0 &&
-						tab_pom.get(start_y-2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x-1).getOwnerId() == 0)
-					{
+						tab_pom.get(start_y-2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x-1).getOwnerId() == 0) {
+					if(hasThisMove(tab, start_x-1, start_y-2, i)) {
+						
+					}
+					else {
 						tab[i][0] = start_x-1;
 						tab[i][1] = start_y-2;
 						i++;
@@ -258,19 +305,24 @@ public class ChineseCheckersRules implements GameRules {
 						inif = true;
 						tab = checkCombo(tab, start_x-1, start_y-2, 6, ++depth);	
 					}
+				}
 			}
 			else if(start_y%2 == 1) {
 				if(tab_pom.get(start_y-1).get(start_x) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x).getOwnerId() > 0 &&
-						tab_pom.get(start_y-2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x-1).getOwnerId() == 0)
-					{
+						tab_pom.get(start_y-2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x-1).getOwnerId() == 0) {
+					if(hasThisMove(tab, start_x-1, start_y-2, i)) {
+						
+					}
+					else {
 						tab[i][0] = start_x-1;
 						tab[i][1] = start_y-2;
 						i++;
 						tab[i][0] = -1;
 						tab[i][1] = -1;
 						inif = true;
-						tab = checkCombo(tab, start_x-1, start_y-2, 6, ++depth);	
+						tab = checkCombo(tab, start_x-1, start_y-2, 6, ++depth);
 					}
+				}
 			}		
 		}
 		return tab;
@@ -291,7 +343,7 @@ public class ChineseCheckersRules implements GameRules {
 			int [][] tab = this.availableMoves(start_x, start_y);
 			int i = 0;
 			while(tab[i][0] != -1) {
-				System.out.printf("%d-%d,%d-%d\n", tab[i][0], end_x, tab[i][1], end_y);
+				System.out.printf("%d,%d\n", tab[i][0], tab[i][1]);
 				if(tab[i][0] == end_x && tab[i][1] == end_y) {
 					Rectangle2D tempFrameSource = board.getFieldArray().get(start_y).get(start_x).getField().getFrame();
 			        Rectangle2D tempFrameTarget = board.getFieldArray().get(end_y).get(end_x).getField().getFrame();
