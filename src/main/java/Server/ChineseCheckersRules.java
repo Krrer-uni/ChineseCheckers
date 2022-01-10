@@ -10,7 +10,7 @@ import Client.Field;
 import Client.PlayerField;
 
 public class ChineseCheckersRules implements GameRules {
-	Board board;
+	private Board board;
 	
 	public ChineseCheckersRules(int playerNumber) {
 		if(this.isPlayerNumberGood(playerNumber)) {
@@ -18,6 +18,10 @@ public class ChineseCheckersRules implements GameRules {
 	        boardBuilder.setLayout(playerNumber);
 	        board = boardBuilder.getBoard();
 		}
+	}
+	
+	public Board getBoard() {
+		return board;
 	}
 	
 	@Override

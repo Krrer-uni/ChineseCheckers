@@ -10,11 +10,17 @@ import Client.Field;
 import Client.PlayerField;
 
 public class AllAllowedChineseCheckersRules implements GameRules {
-	Board board;
-	public AllAllowedChineseCheckersRules() {
-		BoardBuilder boardBuilder = new BoardBuilder(new Dimension(100, 100));
-        boardBuilder.setLayout(2);
-        board = boardBuilder.getBoard();
+	private Board board;
+	public AllAllowedChineseCheckersRules(int playerNumber) {
+		if(this.isPlayerNumberGood(playerNumber)) {
+			BoardBuilder boardBuilder = new BoardBuilder(new Dimension(100, 100));
+	        boardBuilder.setLayout(playerNumber);
+	        board = boardBuilder.getBoard();
+		}
+	}
+	
+	public Board getBoard() {
+		return board;
 	}
 	
 	@Override

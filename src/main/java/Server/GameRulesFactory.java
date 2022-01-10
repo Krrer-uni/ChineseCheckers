@@ -7,7 +7,7 @@ public class GameRulesFactory {
 			return new ChineseCheckersRules(playerNumber);
 		}
 		else if(ruleName.equalsIgnoreCase("ALL ALLOWED")) {
-			return new AllAllowedChineseCheckersRules();
+			return new AllAllowedChineseCheckersRules(playerNumber);
 		}
 		else
 			return null;
