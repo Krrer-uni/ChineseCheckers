@@ -1,6 +1,7 @@
 package Server;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
@@ -86,7 +87,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		ArrayList<ArrayList<Field>> tab_pom= board.getFieldArray();
 		//RIGHT JUMP
-		if( banned_dir != 5 && (start_x < tab_pom.get(start_y).size() - 2) && 
+		if( i < 999 && banned_dir != 5 && (start_x < tab_pom.get(start_y).size() - 2) && 
 				(tab_pom.get(start_y).get(start_x+1) instanceof PlayerField) && (tab_pom.get(start_y).get(start_x+1).getOwnerId() > 0) && 
 				(tab_pom.get(start_y).get(start_x+2) instanceof PlayerField) && (tab_pom.get(start_y).get(start_x+2).getOwnerId() == 0) ) {
 			tab[i][0] = start_x+2;
@@ -106,7 +107,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//LEFT JUMP
-		if( banned_dir != 2 && start_x - 1 > 0 && 
+		if( i < 999 &&  banned_dir != 2 && start_x - 1 > 0 && 
 				tab_pom.get(start_y).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y).get(start_x-1).getOwnerId() > 0 &&
 				tab_pom.get(start_y).get(start_x-2) instanceof PlayerField && tab_pom.get(start_y).get(start_x-2).getOwnerId() == 0) {
 			tab[i][0] = start_x-2;
@@ -126,7 +127,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//DOWN-RIGHT JUMP
-		if( banned_dir != 6 && start_x+1 < tab_pom.get(start_y).size() && start_y+2 < tab_pom.size()) {
+		if( i < 999 &&  banned_dir != 6 && start_x+1 < tab_pom.get(start_y).size() && start_y+2 < tab_pom.size()) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y+1).get(start_x) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x).getOwnerId() > 0 &&
 						tab_pom.get(start_y+2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x+1).getOwnerId() == 0)
@@ -163,7 +164,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//DOWN-LEFT JUMP
-		if( banned_dir != 1 && start_x > 0 && start_y+2 < tab_pom.size()) {
+		if( i < 999 &&  banned_dir != 1 && start_x > 0 && start_y+2 < tab_pom.size()) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y+1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x-1).getOwnerId() > 0 &&
 						tab_pom.get(start_y+2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-1).getOwnerId() == 0)
@@ -200,7 +201,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//UP-RIGHT JUMP
-		if( banned_dir != 4 && start_x+1 < tab_pom.get(start_y).size() && start_y-1 > 0) {
+		if( i < 999 &&  banned_dir != 4 && start_x+1 < tab_pom.get(start_y).size() && start_y-1 > 0) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y-1).get(start_x) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x).getOwnerId() > 0 &&
 						tab_pom.get(start_y-2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x+1).getOwnerId() == 0)
@@ -237,7 +238,7 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		inif = false;
 		//UP-LEFT JUMP
-		if( banned_dir != 3 && start_x > 0 && start_y-1 > 0) {
+		if( i < 999 &&  banned_dir != 3 && start_x > 0 && start_y-1 > 0) {
 			if( start_y%2 == 0 ) {
 				if(tab_pom.get(start_y-1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x-1).getOwnerId() > 0 &&
 						tab_pom.get(start_y-2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x-1).getOwnerId() == 0)
@@ -298,4 +299,19 @@ public class ChineseCheckersRules implements GameRules {
 		}
 		return false;
 	}
+
+	public boolean hasEnded(int playerId, int playerCount) {
+		WinningTriangle() = new WinningTriangle();
+		for (FieldCords point : vector.getTriangle(playerCount, playerId)) {
+			int y_pom = point.getY();
+			int x_pom = point.getX();
+			if (board.getFieldArray().get(y_pom).get(x_pom) instanceof PlayerField 
+					&& board.getFieldArray().get(y_pom).get(x_pom).getOwnerId() == playerId) {
+			
+			}	
+			else 
+				return false;
+		}
+	}
 }
+

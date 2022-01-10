@@ -82,14 +82,12 @@ public class Player implements Runnable {
                 	player.output.println("PLAYER " + playerId + " MOVED " + x1 + " " + y1 + " " + x2 + " " + y2);
                 	
                 }
+            	if (game.hasPlayerEnded(playerId)) {
+                    output.println("FINISH " + game.getNumberPlayersFinished());
+                    game.setWin(playerId);
+                }
             	game.nextToMove(playerId);
             }	
-            /*
-            if (hasWinner()) {
-                output.println("VICTORY");
-                opponent.output.println("DEFEAT");
-            } 
-            */
         } catch (IllegalStateException e) {
             output.println("MESSAGE " + e.getMessage());
         }

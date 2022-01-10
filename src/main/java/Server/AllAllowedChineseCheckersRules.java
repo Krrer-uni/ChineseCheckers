@@ -65,4 +65,9 @@ public class AllAllowedChineseCheckersRules implements GameRules {
 		return false;
 	}
 
+	@Override
+	public boolean hasEnded(int playerCount, int playerId) {
+		return false;
+	}
+
 }
