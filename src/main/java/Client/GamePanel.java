@@ -16,25 +16,49 @@ public class GamePanel extends JPanel {
     int playerId;
     int currentPlayer;
     JButton skipbutton;
+    JTextArea playerInfo;
+    JTextArea winInfo;
+    boolean gameWon = false;
 
     public GamePanel(int windowWidth, int windowHeight) {
-        skipbutton = new JButton("Skip Turn");
+        currentPlayer = 0;
 
         boardBuilder = new BoardBuilder(new Dimension(windowWidth,
-                windowHeight - skipbutton.getHeight()));
+                windowHeight));
         boardBuilder.setLayout(2);
         board = boardBuilder.getBoard();
         setBackground(new Color(160, 101, 28));
-        repaint();
+
         setLayout(null);
+
+        skipbutton = new JButton("Skip Turn");
         add(skipbutton);
         skipbutton.setBounds((int) (windowWidth * 0.7), (int) (windowHeight * 0.8),
                 (int) (windowWidth * 0.25), (int) (windowHeight * 0.1));
-//        add(skipbutton);
+
+        playerInfo  = new JTextArea("You are a player " + playerId + "\n");
+        playerInfo.setEditable(false);
+        add(playerInfo);
+        playerInfo.setOpaque(false);
+        playerInfo.setBorder(null);
+        playerInfo.setFont(new Font("Sans", Font.PLAIN,20));
+        playerInfo.setBounds((int) (windowWidth * 0.05), (int) (windowHeight * 0.05),
+                (int) (windowWidth * 0.35), (int) (windowHeight * 0.1));
+
+        winInfo = new JTextArea("YOU WON!");
+        winInfo.setEditable(false);
+        winInfo.setOpaque(false);
+        winInfo.setBorder(null);
+        winInfo.setFont(new Font("Sans", Font.PLAIN, 50));
+        winInfo.setBounds((int) (windowWidth * 0.55), (int) (windowHeight * 0.05),
+                (int) (windowWidth * 0.35), (int) (windowHeight * 0.1));
+        winInfo.setVisible(false);
+        add(winInfo);
+
         addMouseListener(new GameMouseListener());
         skipbutton.addActionListener(new SkipButtonListener());
-        currentPlayer = 0;
 
+        repaint();
     }
 
 
@@ -72,10 +96,34 @@ public class GamePanel extends JPanel {
 
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
+        String message = "You are a player ";
+
+        message += playerId;
+        message += "\nYour color is ";
+        if(playerId == 1) message += "blue";
+        else if(playerId == 2) message += "red";
+        else if(playerId == 3) message += "green";
+        else if(playerId == 4) message += "pink";
+        else if(playerId == 5) message += "yellow";
+        else if(playerId == 6) message += "magenta";
+        this.playerInfo.setText(message);
     }
 
     public void setCurrentPlayer(int currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public void gameFinished(int place){
+        if(place == 1){
+            winInfo.setText("YOU WON");
+        } else {
+            winInfo.setText("You placed " + place);
+            if (place == 2) winInfo.append("nd");
+            else if (place == 3) winInfo.append("rd");
+            else winInfo.append("th");
+            winInfo.setFont(new Font("Sans", Font.PLAIN, 30));
+        }
+        winInfo.setVisible(true);
     }
 
     public void updateBoard(int sourceRow, int sourceColumn, int targetRow, int targetColumn) {
@@ -107,7 +155,7 @@ public class GamePanel extends JPanel {
         public void mousePressed(MouseEvent e) {
             for (ArrayList<Field> row : board.fieldArray) {
                 for (Field field : row) {
-                    if (field.getField().contains(e.getX(), e.getY())) {
+                    if (field instanceof PlayerField && field.getField().contains(e.getX(), e.getY())) {
                         if (field.getOwnerId() == playerId) {
                             System.out.println("wybrano " + row.indexOf(field) + "," + board.fieldArray.indexOf(row));
                             board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);

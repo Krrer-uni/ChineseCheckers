@@ -7,13 +7,10 @@ import java.awt.geom.Point2D;
 
 public class EmptyField implements Field{
 
-    Ellipse2D.Float field;
-    boolean isActive;
 
-    public EmptyField( Point2D location, Dimension2D size) {
-        field = new Ellipse2D.Float();
-        field.setFrame(location, size);
-        isActive = false;
+
+    public EmptyField() {
+
     }
 
     @Override
@@ -23,15 +20,13 @@ public class EmptyField implements Field{
 
     @Override
     public Ellipse2D getField() {
-        return field;
+        return null;
     }
 
     @Override
     public boolean isActive() { return false; }
 
     @Override
-    public void setActive(boolean state) {
-        isActive = state;
-    }
+    public void setActive(boolean state) {}
 
 }
