@@ -51,7 +51,7 @@ public class Game {
 	
 	public boolean move (int x1, int y1, int x2, int y2, int playerId) {
 		if(playerId == playerToMove) {
-			if(gameRules.isMoveGood(x1, y1, x2, y2))
+			if(gameRules.isMoveGood(x1, y1, x2, y2, playerId, numberPlayers))
 				return true;
 		}
 		return false;

@@ -83,7 +83,7 @@ public class Player implements Runnable {
                 	
                 }
             	if (game.hasPlayerEnded(playerId)) {
-                    output.println("FINISH " + game.getNumberPlayersFinished());
+                    output.println("FINISHED " + game.getNumberPlayersFinished());
                     game.setWin(playerId);
                 }
             	game.nextToMove(playerId);

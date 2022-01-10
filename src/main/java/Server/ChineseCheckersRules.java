@@ -1,7 +1,6 @@
 package Server;
 
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
@@ -279,30 +278,52 @@ public class ChineseCheckersRules implements GameRules {
 	}
 
 	@Override
-	public boolean isMoveGood(int start_x, int start_y, int end_x, int end_y) {
-		int [][] tab = this.availableMoves(start_x, start_y);
-		int i = 0;
-		while(tab[i][0] != -1) {
-			System.out.printf("%d-%d,%d-%d\n", tab[i][0], end_x, tab[i][1], end_y);
-			if(tab[i][0] == end_x && tab[i][1] == end_y) {
-				Rectangle2D tempFrameSource = board.getFieldArray().get(start_y).get(start_x).getField().getFrame();
-		        Rectangle2D tempFrameTarget = board.getFieldArray().get(end_y).get(end_x).getField().getFrame();
-		        board.getFieldArray().get(start_y).get(start_x).getField().setFrame(tempFrameTarget);
-		        board.getFieldArray().get(end_y).get(end_x).getField().setFrame(tempFrameSource);
-
-		        Field tempField = board.getFieldArray().get(start_y).get(start_x);
-		        board.getFieldArray().get(start_y).set(start_x, board.getFieldArray().get(end_y).get(end_x));
-		        board.getFieldArray().get(end_y).set(end_x, tempField);
-				return true;
+	public boolean isMoveGood(int start_x, int start_y, int end_x, int end_y, int playerId, int playerCount) {
+		if ( isInWinningTriangle(start_x, start_y, end_x, end_y, playerId, playerCount ) ) {
+			int [][] tab = this.availableMoves(start_x, start_y);
+			int i = 0;
+			while(tab[i][0] != -1) {
+				System.out.printf("%d-%d,%d-%d\n", tab[i][0], end_x, tab[i][1], end_y);
+				if(tab[i][0] == end_x && tab[i][1] == end_y) {
+					Rectangle2D tempFrameSource = board.getFieldArray().get(start_y).get(start_x).getField().getFrame();
+			        Rectangle2D tempFrameTarget = board.getFieldArray().get(end_y).get(end_x).getField().getFrame();
+			        board.getFieldArray().get(start_y).get(start_x).getField().setFrame(tempFrameTarget);
+			        board.getFieldArray().get(end_y).get(end_x).getField().setFrame(tempFrameSource);
+	
+			        Field tempField = board.getFieldArray().get(start_y).get(start_x);
+			        board.getFieldArray().get(start_y).set(start_x, board.getFieldArray().get(end_y).get(end_x));
+			        board.getFieldArray().get(end_y).set(end_x, tempField);
+					return true;
+				}
+				i++;
 			}
-			i++;
+			return false;
 		}
+		System.out.println("trojkat");
 		return false;
 	}
+	
+	public boolean isInWinningTriangle(int start_x, int start_y, int end_x, int end_y, int playerId, int playerCount) {
+		WinningTriangle triangle = new WinningTriangle();
+		for (FieldCords point : triangle.getTriangle(playerCount, playerId)) {
+			int y_pom = point.getY();
+			int x_pom = point.getX();
+			if(start_x == x_pom && start_y == y_pom)	{
+				for (FieldCords point_a : triangle.getTriangle(playerCount, playerId)) {
+					int y = point_a.getY();
+					int x = point_a.getX();
+					if(end_x == x && end_y == y)
+						return true;
+				}
+				return false;
+			}
+		}
+		return true;
+	}
 
-	public boolean hasEnded(int playerId, int playerCount) {
-		WinningTriangle() = new WinningTriangle();
-		for (FieldCords point : vector.getTriangle(playerCount, playerId)) {
+	public boolean hasEnded(int playerCount, int playerId) {
+		WinningTriangle triangle = new WinningTriangle();
+		for (FieldCords point : triangle.getTriangle(playerCount, playerId)) {
 			int y_pom = point.getY();
 			int x_pom = point.getX();
 			if (board.getFieldArray().get(y_pom).get(x_pom) instanceof PlayerField 
@@ -312,6 +333,7 @@ public class ChineseCheckersRules implements GameRules {
 			else 
 				return false;
 		}
+		return true;
 	}
 }
 

@@ -8,7 +8,7 @@ public class WinningTriangle {
 
     public WinningTriangle(){
         bigList = new Vector<>();
-        for(int i = 0; i < 6; i++) {
+        for(int i = 0; i < 7; i++) {
             bigList.add(new Vector<>());
         }
         bigList.get(1).add(new FieldCords(6,0));
@@ -85,24 +85,24 @@ public class WinningTriangle {
 
     public Vector<FieldCords> getTriangle(int playerCount, int playerId){
         if(playerCount == 2){
-            if(playerId == 1) return bigList.get(1);
-            else if(playerId == 2) return bigList.get(4);
+            if(playerId == 1) return bigList.get(4);
+            else if(playerId == 2) return bigList.get(1);
         } else if(playerCount == 3){
-            if(playerId == 1) return bigList.get(6);
-            else if(playerId == 2) return bigList.get(4);
-            else if(playerId == 3) return bigList.get(2);
+            if(playerId == 1) return bigList.get(3);
+            else if(playerId == 2) return bigList.get(1);
+            else if(playerId == 3) return bigList.get(5);
         }else if(playerCount == 4){
-            if(playerId == 1) return bigList.get(6);
-            else if(playerId == 2) return bigList.get(5);
-            else if(playerId == 3) return bigList.get(3);
-            else if(playerId == 4) return bigList.get(2);
+            if(playerId == 1) return bigList.get(3);
+            else if(playerId == 2) return bigList.get(2);
+            else if(playerId == 3) return bigList.get(6);
+            else if(playerId == 4) return bigList.get(5);
         }else if(playerCount == 6){
-            if(playerId == 1) return bigList.get(6);
-            else if(playerId == 2) return bigList.get(5);
-            else if(playerId == 3) return bigList.get(4);
-            else if(playerId == 4) return bigList.get(3);
-            else if(playerId == 5) return bigList.get(2);
-            else if(playerId == 6) return bigList.get(1);
+            if(playerId == 1) return bigList.get(3);
+            else if(playerId == 2) return bigList.get(2);
+            else if(playerId == 3) return bigList.get(1);
+            else if(playerId == 4) return bigList.get(6);
+            else if(playerId == 5) return bigList.get(5);
+            else if(playerId == 6) return bigList.get(4);
         }
         return null;
     }
