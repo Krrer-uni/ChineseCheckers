@@ -343,7 +343,7 @@ public class ChineseCheckersRules implements GameRules {
 			int [][] tab = this.availableMoves(start_x, start_y);
 			int i = 0;
 			while(tab[i][0] != -1) {
-				System.out.printf("%d-%d,%d-%d\n", tab[i][0], end_x, tab[i][1], end_y);
+				System.out.printf("%d,%d\n", tab[i][0], tab[i][1]);
 				if(tab[i][0] == end_x && tab[i][1] == end_y) {
 					Rectangle2D tempFrameSource = board.getFieldArray().get(start_y).get(start_x).getField().getFrame();
 			        Rectangle2D tempFrameTarget = board.getFieldArray().get(end_y).get(end_x).getField().getFrame();
