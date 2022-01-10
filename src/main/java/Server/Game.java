@@ -4,26 +4,34 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
-	GameRules gameRules;
+	private GameRules gameRules;
 	private int numberPlayers;
-	ArrayList<Player> players;
+	private ArrayList<Player> players;
 	private int numberPlayersFinished;
 	
-	public Game (GameRules gameRules) {
+	public Game(GameRules gameRules) {
 		this.gameRules = gameRules;
 		players = new ArrayList<Player>();
 		this.numberPlayersFinished = 0;
 	}
 	
-	public void setGameRules (GameRules gameRules) {
+	public void setGameRules(GameRules gameRules) {
 		this.gameRules=gameRules;
 	}
 	
-	public void setPlayers (int pl) throws WrongPlayerNumber{
+	public GameRules getGameRules() {
+		return gameRules;
+	}
+	
+	public void setPlayers(int pl) throws WrongPlayerNumber{
 		if (gameRules.isPlayerNumberGood(pl)) {
 			this.numberPlayers=pl;
 		}
 		else throw new WrongPlayerNumber();
+	}
+	
+	public int getNumberPlayers() {
+		return numberPlayers;
 	}
 	
 	public void addPlayer(Player p) {
@@ -53,7 +61,7 @@ public class Game {
 		return false;
 	}
 	
-	public boolean hasPlayerEnded (int playerId) {
+	public boolean hasPlayerEnded(int playerId) {
 		if(gameRules.hasEnded(numberPlayers, playerId)) {
 			numberPlayersFinished++;
 			return true;
@@ -89,11 +97,6 @@ public class Game {
 	class WrongPlayerNumber extends Exception {
 
 		private static final long serialVersionUID = 1L;
-	}
-
-
-	public int getNumberPlayers() {
-		return numberPlayers;
 	}
 
 }
