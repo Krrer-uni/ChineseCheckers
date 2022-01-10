@@ -84,7 +84,6 @@ public class Game {
 			players.get(previousId-1).sendEndInfo(++numberPlayersFinished);
 			System.out.println("THE END OF GAME");
 		}
-		//jak tu wyjdzie to nie ma z kim grać :(
 	}
 	
 	class WrongPlayerNumber extends Exception {
