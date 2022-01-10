@@ -1,38 +1,16 @@
 package Client;
 
-public class GameServerMediator {
+public interface GameServerMediator {
 
-	private MainWindow mainWindow;
-	private Client2ServerConnection server;
-	private GamePanel gamePanel;
-	
-	public GameServerMediator (MainWindow mainWindow, Client2ServerConnection server, GamePanel gamePanel) {
-		this.mainWindow=mainWindow;
-		this.server=server;
-		this.gamePanel=gamePanel;
-	}
-	
-	public void updateBoard(int rowSource, int columnSource, int rowTarget, int columnTarget) {
-		gamePanel.updateBoard(rowSource, columnSource, rowTarget, columnTarget);
-	}
-	
-	public void sendMove(int rowSource, int columnSource, int rowTarget, int columnTarget) {
-		server.sendMove(rowSource, columnSource, rowTarget, columnTarget);
-	}
+     void updateBoard(int rowSource, int columnSource, int rowTarget, int columnTarget);
 
-	public void gameInit(int playerCount,int playerId){
-		gamePanel.setBoardBuilderLayout(playerCount);
-		gamePanel.setPlayerId(playerId);
-	}
+     void sendMove(int rowSource, int columnSource, int rowTarget, int columnTarget);
 
-	public void setCurrentPlayer(int startingPlyer){
-		gamePanel.setCurrentPlayer(startingPlyer);
-	}
+     void gameInit(int playerCount, int playerId);
 
-	public void sendSkip(){
-		server.sendSkip();
-	}
-	public void gameFinished(int place){
-		gamePanel.gameFinished(place);
-	}
+     void setCurrentPlayer(int startingPlyer);
+
+     void sendSkip();
+
+     void gameFinished(int place);
 }

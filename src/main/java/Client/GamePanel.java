@@ -12,13 +12,12 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel {
     Board board;
     BoardBuilder boardBuilder;
-    GameServerMediator mediator;
+    ChineseCheckerMediator mediator;
     int playerId;
     int currentPlayer;
     JButton skipbutton;
     JTextArea playerInfo;
     JTextArea gameInfo;
-    boolean gameWon = false;
 
     public GamePanel(int windowWidth, int windowHeight) {
         currentPlayer = 0;
@@ -60,8 +59,7 @@ public class GamePanel extends JPanel {
         repaint();
     }
 
-
-    public void setGameServerMediator(GameServerMediator mediator) {
+    public void setGameServerMediator(ChineseCheckerMediator mediator) {
         this.mediator = mediator;
     }
 
@@ -129,7 +127,6 @@ public class GamePanel extends JPanel {
     }
 
 
-
     public void updateBoard(int sourceRow, int sourceColumn, int targetRow, int targetColumn) {
         board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
         Rectangle2D tempFrameSource =
@@ -193,4 +190,19 @@ public class GamePanel extends JPanel {
     }
 
 
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public JTextArea getPlayerInfo() {
+        return playerInfo;
+    }
+
+    public JTextArea getGameInfo() {
+        return gameInfo;
+    }
 }
