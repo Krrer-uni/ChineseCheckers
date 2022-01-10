@@ -9,7 +9,7 @@ public class Client2ServerConnection {
     private Socket socket;
     private Scanner in;
     private PrintWriter out;
-    private GameServerMediator mediator;
+    private ChineseCheckerMediator mediator;
 
     public Client2ServerConnection(String serverAddress, int port) throws Exception {
 
@@ -18,7 +18,7 @@ public class Client2ServerConnection {
         out = new PrintWriter(socket.getOutputStream(), true);
     }
 
-    public void setGameServerMediator(GameServerMediator mediator) {
+    public void setGameServerMediator(ChineseCheckerMediator mediator) {
         this.mediator = mediator;
     }
 

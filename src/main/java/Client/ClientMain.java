@@ -11,13 +11,11 @@ public class ClientMain {
     	while(true) {
 			try {
 				Client2ServerConnection connection = new Client2ServerConnection("localhost", 21371);
-				GameServerMediator mediator = new GameServerMediator(window, connection, window.getGamePanel());
+				ChineseCheckerMediator mediator = new ChineseCheckerMediator(connection, window.getGamePanel());
 				connection.setGameServerMediator(mediator);
 				window.getGamePanel().setGameServerMediator(mediator);
 				window.setVisible(true);
 				connection.listen();
-
-
 			} catch (Exception e) {
 //			e.printStackTrace();
 				System.out.println(e.getMessage());
