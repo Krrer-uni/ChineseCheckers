@@ -25,14 +25,8 @@ public class GameTest {
 			Player p = new Player(new Socket(), i, game);
 			game.addPlayer(p);
 		}
-		/**
-		int startingPeopleNo = 0;
-		for(int i = 0; i < 6; i++) {
-			if (game.getPlayerList().get(i).getState() instanceof PlayerStateMove)
-				startingPeopleNo++;
-		}
-		assertEquals(1, startingPeopleNo);
+		assertEquals(6, game.getPlayerList().size());
 		
-		**/
 	}
+	
 }

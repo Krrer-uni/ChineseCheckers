@@ -10,7 +10,7 @@ public class Player implements Runnable {
 	private Game game;
 	private int playerId;
 	private Socket socket;
-	private Scanner input;
+	private Scanner input ;
 	private PrintWriter output;
 	private PlayerState state;
 	
