@@ -17,7 +17,7 @@ public class GamePanel extends JPanel {
     int currentPlayer;
     JButton skipbutton;
     JTextArea playerInfo;
-    JTextArea winInfo;
+    JTextArea gameInfo;
     boolean gameWon = false;
 
     public GamePanel(int windowWidth, int windowHeight) {
@@ -45,15 +45,14 @@ public class GamePanel extends JPanel {
         playerInfo.setBounds((int) (windowWidth * 0.05), (int) (windowHeight * 0.05),
                 (int) (windowWidth * 0.35), (int) (windowHeight * 0.1));
 
-        winInfo = new JTextArea("YOU WON!");
-        winInfo.setEditable(false);
-        winInfo.setOpaque(false);
-        winInfo.setBorder(null);
-        winInfo.setFont(new Font("Sans", Font.PLAIN, 50));
-        winInfo.setBounds((int) (windowWidth * 0.55), (int) (windowHeight * 0.05),
-                (int) (windowWidth * 0.35), (int) (windowHeight * 0.1));
-        winInfo.setVisible(false);
-        add(winInfo);
+        gameInfo = new JTextArea("Waiting for players...");
+        gameInfo.setEditable(false);
+        gameInfo.setOpaque(false);
+        gameInfo.setBorder(null);
+        gameInfo.setFont(new Font("Sans", Font.PLAIN, 30));
+        gameInfo.setBounds((int) (windowWidth * 0.55), (int) (windowHeight * 0.05),
+                (int) (windowWidth * 0.4), (int) (windowHeight * 0.1));
+        add(gameInfo);
 
         addMouseListener(new GameMouseListener());
         skipbutton.addActionListener(new SkipButtonListener());
@@ -111,20 +110,25 @@ public class GamePanel extends JPanel {
 
     public void setCurrentPlayer(int currentPlayer) {
         this.currentPlayer = currentPlayer;
+
+        gameInfo.setText("Player " + currentPlayer + " turn");
+        gameInfo.setVisible(true);
     }
 
     public void gameFinished(int place){
         if(place == 1){
-            winInfo.setText("YOU WON");
+            gameInfo.setFont(new Font("Sans", Font.PLAIN, 50));
+            gameInfo.setText("YOU WON");
         } else {
-            winInfo.setText("You placed " + place);
-            if (place == 2) winInfo.append("nd");
-            else if (place == 3) winInfo.append("rd");
-            else winInfo.append("th");
-            winInfo.setFont(new Font("Sans", Font.PLAIN, 30));
+            gameInfo.setText("You placed " + place);
+            if (place == 2) gameInfo.append("nd");
+            else if (place == 3) gameInfo.append("rd");
+            else gameInfo.append("th");
         }
-        winInfo.setVisible(true);
+        gameInfo.setVisible(true);
     }
+
+
 
     public void updateBoard(int sourceRow, int sourceColumn, int targetRow, int targetColumn) {
         board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);

@@ -20,6 +20,7 @@ public class BoardBuilder {
     private final Dimension nonEmptyFieldDimension;
 
     private final int xBoardOffset;
+    private final int yBoardOffset;
     private ArrayList<ArrayList<Integer>> layout;
 
     public BoardBuilder(Dimension windowDimension) {
@@ -32,8 +33,8 @@ public class BoardBuilder {
         layout = new ArrayList<>();
         fieldDistance = windowDimension.height / (rows +1 ) ;
 
-        nonEmptyFieldDimension = new Dimension(windowDimension.height / (2 * rows),
-                windowDimension.height / (2 * rows));
+        nonEmptyFieldDimension = new Dimension(windowDimension.height / (3 * rows) * 2,
+                windowDimension.height / (3 * rows) * 2);
 
         emptyFieldDistanceCorrection = nonEmptyFieldDimension.width / 2;
 
@@ -41,6 +42,7 @@ public class BoardBuilder {
                 windowDimension.height / (2 * rows) / 2);
 
         xBoardOffset = (rows - columns)/2 * fieldDistance;
+        yBoardOffset = 20;
     }
 
 
@@ -51,7 +53,7 @@ public class BoardBuilder {
             for (int j = 0; j < columns; j++) {
                 int fieldDistanceX = fieldDistance * j + (i % 2 == 1 ?
                         fieldDistance / 2 : 0) + xBoardOffset;
-                int fieldDistanceY = fieldDistance * i + 20;
+                int fieldDistanceY = fieldDistance * i + yBoardOffset;
                 if (layout.get(i).get(j) == -1) {
                     board.fieldArray.get(i).add(new EmptyField());
                 } else if (layout.get(i).get(j) == 0) {
