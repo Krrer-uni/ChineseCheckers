@@ -2,11 +2,13 @@ package Server;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
 
+import Client.Board;
 import Client.Field;
 import Client.PlayerField;
 
@@ -21,13 +23,13 @@ public class AllAllowedChineseCheckersRulesTest {
 	@Test
 	public void hasBoardForGoodPlayerNumber() {
 		AllAllowedChineseCheckersRules rules = new AllAllowedChineseCheckersRules(6);
-		assertFalse(rules.getBoard() == null);
+		assertTrue(rules.getBoard() instanceof Board);
 		rules = new AllAllowedChineseCheckersRules(4);
-		assertFalse(rules.getBoard() == null);
+		assertTrue(rules.getBoard() instanceof Board);
 		rules = new AllAllowedChineseCheckersRules(3);
-		assertFalse(rules.getBoard() == null);
+		assertTrue(rules.getBoard() instanceof Board);
 		rules = new AllAllowedChineseCheckersRules(2);
-		assertFalse(rules.getBoard() == null);
+		assertTrue(rules.getBoard() instanceof Board);
 	}
 	
 	@Test

@@ -7,12 +7,12 @@ import java.util.Scanner;
 
 public class Player implements Runnable {
 
-	Game game;
-	int playerId;
-	Socket socket;
-	Scanner input;
-	PrintWriter output;
-	PlayerState state;
+	private Game game;
+	private int playerId;
+	private Socket socket;
+	private Scanner input;
+	private PrintWriter output;
+	private PlayerState state;
 	
 	public Player(Socket socket, int playerId, Game game) {
         this.socket = socket;
