@@ -83,7 +83,7 @@ public class Player implements Runnable {
                 	
                 }
             	if (game.hasPlayerEnded(playerId)) {
-                    output.println("FINISHED " + game.getNumberPlayersFinished());
+                    sendEndInfo(game.getNumberPlayersFinished());
                     game.setWin(playerId);
                 }
             	game.nextToMove(playerId);
@@ -91,6 +91,10 @@ public class Player implements Runnable {
         } catch (IllegalStateException e) {
             output.println("MESSAGE " + e.getMessage());
         }
+    }
+    
+    public void sendEndInfo(int place) {
+    	output.println("FINISHED " + place);
     }
 }
 	
