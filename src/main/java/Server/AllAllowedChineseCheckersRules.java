@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Client.Board;
 import Client.BoardBuilder;
+import Client.ChineseCheckersBoardBuilder;
 import Client.Field;
 import Client.PlayerField;
 
@@ -13,8 +14,8 @@ public class AllAllowedChineseCheckersRules implements GameRules {
 	private Board board;
 	public AllAllowedChineseCheckersRules(int playerNumber) {
 		if(this.isPlayerNumberGood(playerNumber)) {
-			BoardBuilder boardBuilder = new BoardBuilder(new Dimension(100, 100));
-	        boardBuilder.setLayout(playerNumber);
+			BoardBuilder boardBuilder = new ChineseCheckersBoardBuilder(new Dimension(100, 100));
+	        boardBuilder.buildBoard(playerNumber);
 	        board = boardBuilder.getBoard();
 		}
 	}

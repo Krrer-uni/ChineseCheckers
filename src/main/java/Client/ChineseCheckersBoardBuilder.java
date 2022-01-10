@@ -6,7 +6,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BoardBuilder {
+public class ChineseCheckersBoardBuilder implements BoardBuilder{
 
     int rows;
     int columns;
@@ -23,7 +23,7 @@ public class BoardBuilder {
     private final int yBoardOffset;
     private ArrayList<ArrayList<Integer>> layout;
 
-    public BoardBuilder(Dimension windowDimension) {
+    public ChineseCheckersBoardBuilder(Dimension windowDimension) {
         this.windowDimension = windowDimension;
 
 
@@ -91,7 +91,7 @@ public class BoardBuilder {
     }
 
 
-    public void setLayout(int playerCount) {
+    public void buildBoard(int playerCount) {
         layout = new ArrayList<>();
         if (playerCount == 2) {
             layout.add(new ArrayList<>(Arrays.asList(

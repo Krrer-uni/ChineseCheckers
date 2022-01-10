@@ -23,9 +23,9 @@ public class GamePanel extends JPanel {
     public GamePanel(int windowWidth, int windowHeight) {
         currentPlayer = 0;
 
-        boardBuilder = new BoardBuilder(new Dimension(windowWidth,
+        boardBuilder = new ChineseCheckersBoardBuilder(new Dimension(windowWidth,
                 windowHeight));
-        boardBuilder.setLayout(2);
+        boardBuilder.buildBoard(2);
         board = boardBuilder.getBoard();
         setBackground(new Color(160, 101, 28));
 
@@ -66,7 +66,7 @@ public class GamePanel extends JPanel {
     }
 
     public void setBoardBuilderLayout(int playerCount) {
-        boardBuilder.setLayout(playerCount);
+        boardBuilder.buildBoard(playerCount);
         board = boardBuilder.getBoard();
     }
 
