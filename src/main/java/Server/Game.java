@@ -88,7 +88,9 @@ public class Game {
 				break;
 			}
 			i = (i + 1) % numberPlayers;
-			if (i == 0) i = numberPlayers;
+			if (i == 0) {
+				i = numberPlayers;
+			}
 		}	
 	}
 	
