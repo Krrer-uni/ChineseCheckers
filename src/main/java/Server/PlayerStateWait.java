@@ -4,14 +4,14 @@ package Server;
  * Class implementing PlayerState interface. 
  * Describes a state when a player needs to wait
  * for opponents to move.
- * @author swmar
+ * @author Marek Świergoń
  *
  */
 public class PlayerStateWait implements PlayerState{
 
 	/**
-	  * {@inheritDoc}
-	  */
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PlayerState getState() {
 		return this;

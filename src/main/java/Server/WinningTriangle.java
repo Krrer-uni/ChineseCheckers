@@ -2,10 +2,25 @@ package Server;
 
 import java.util.ArrayList;
 
+/**
+ * Class that represents each winning area for all types of chinese 
+ * checkers game.
+ * @author Wojciech Rymer
+ *
+ */
 public class WinningTriangle {
 
-    private ArrayList<ArrayList<FieldCords>> bigList;
+	/**
+	 * List of all winning triangles in Chinese Checkers 
+	 * (for each number of players playing and id of a player)
+	 * @see FieldCords
+	 */
+    private final transient ArrayList<ArrayList<FieldCords>> bigList;
 
+    /**
+     * Constructor method that puts all the points into a list.
+     * @see FieldCords
+     */
     public WinningTriangle(){
         bigList = new ArrayList<>();
         for(int i = 0; i < 7; i++) {
@@ -77,14 +92,18 @@ public class WinningTriangle {
         bigList.get(6).add(new FieldCords(2,6));
         bigList.get(6).add(new FieldCords(1,7));
 
-
-
-
-
     }
 
+    /**
+     * Method that creates a list of points of a specifying winning triangle 
+     * and returns it
+     * @param playerCount number of players playing the game
+     * @param playerId id of a player
+     * @return ArrayList of points of a specific winning triangle
+     * @see FieldCords
+     */
     public ArrayList<FieldCords> getTriangle(final int playerCount, final int playerId){
-    	ArrayList<FieldCords> tab = new ArrayList<FieldCords>();
+    	ArrayList<FieldCords> tab = new ArrayList<>();
         if(playerCount == 2) {
             if(playerId == 1) {
             	tab = bigList.get(4);
