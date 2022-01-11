@@ -10,8 +10,15 @@ import Client.ChineseCheckersBoardBuilder;
 import Client.Field;
 import Client.PlayerField;
 
+/**
+ * Class that represents rules,
+ * where each player can move at any free space on Board.
+ * Simple GameRules implementation
+ * @author swmar
+ *
+ */
 public class AllAllowedChineseCheckersRules implements GameRules {
-	private Board board;
+	private transient Board board;
 	public AllAllowedChineseCheckersRules(int playerNumber) {
 		if(this.isPlayerNumberGood(playerNumber)) {
 			BoardBuilder boardBuilder = new ChineseCheckersBoardBuilder(new Dimension(100, 100));
@@ -25,20 +32,17 @@ public class AllAllowedChineseCheckersRules implements GameRules {
 	}
 	
 	@Override
-	public int [][] availableMoves (int start_x, int start_y) {
-		int[][] tab = new int[1000][2];
-		int i = 0;
-		for(ArrayList<Field> field_tab: board.getFieldArray()) {
-			for(Field field: field_tab) {
+	public ArrayList<FieldCords> availableMoves (int startX, int startY) {
+		ArrayList<FieldCords> tab = new ArrayList<FieldCords>();
+		for(ArrayList<Field> fieldTab: board.getFieldArray()) {
+			for(Field field: fieldTab) {
 				if(field instanceof PlayerField && field.getOwnerId()==0) {
-					tab[i][0] = field_tab.indexOf(field);
-					tab[i][1] = board.getFieldArray().indexOf(field_tab);
-					i++;
+					int x = fieldTab.indexOf(field);
+					int y = board.getFieldArray().indexOf(fieldTab);
+					tab.add(new FieldCords(x, y));
 				}
 			}
 		}
-		tab[i][0] = -1;
-		tab[i][1] = -1;
 		return tab;
 	}
 
@@ -51,29 +55,27 @@ public class AllAllowedChineseCheckersRules implements GameRules {
 	}
 
 	@Override
-	public boolean isMoveGood(int start_x, int start_y, int end_x, int end_y, int playerId, int playerCount) {
-		int [][] tab = this.availableMoves(start_x, start_y);
-		int i = 0;
-		while(tab[i][0] != -1) {
-			System.out.printf("%d-%d,%d-%d\n", tab[i][0], end_x, tab[i][1], end_y);
-			if(tab[i][0] == end_x && tab[i][1] == end_y) {
-				Rectangle2D tempFrameSource = board.getFieldArray().get(start_y).get(start_x).getField().getFrame();
-		        Rectangle2D tempFrameTarget = board.getFieldArray().get(end_y).get(end_x).getField().getFrame();
-		        board.getFieldArray().get(start_y).get(start_x).getField().setFrame(tempFrameTarget);
-		        board.getFieldArray().get(end_y).get(end_x).getField().setFrame(tempFrameSource);
+	public boolean isMoveGood(int startX, int startY, int endX, int endY, int playerId, int playerCount) {
+		ArrayList<FieldCords> tab = this.availableMoves(startX, startY);
+		for(FieldCords point: tab) {
+			System.out.println(point.getX() + "," + point.getY());
+			if(point.getX() == endX && point.getY() == endY) {
+				Rectangle2D tempFrameSource = board.getFieldArray().get(startY).get(startX).getField().getFrame();
+		        Rectangle2D tempFrameTarget = board.getFieldArray().get(endY).get(endX).getField().getFrame();
+		        board.getFieldArray().get(startY).get(startX).getField().setFrame(tempFrameTarget);
+		        board.getFieldArray().get(endY).get(endX).getField().setFrame(tempFrameSource);
 
-		        Field tempField = board.getFieldArray().get(start_y).get(start_x);
-		        board.getFieldArray().get(start_y).set(start_x, board.getFieldArray().get(end_y).get(end_x));
-		        board.getFieldArray().get(end_y).set(end_x, tempField);
+		        Field tempField = board.getFieldArray().get(startY).get(startX);
+		        board.getFieldArray().get(startY).set(startX, board.getFieldArray().get(endY).get(endX));
+		        board.getFieldArray().get(endY).set(endX, tempField);
 				return true;
 			}
-			i++;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean hasEnded(int playerCount, int playerId) {
+	public boolean hasEnded(final int playerCount, final int playerId) {
 		return false;
 	}
 

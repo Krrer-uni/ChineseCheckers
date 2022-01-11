@@ -29,6 +29,7 @@ public class Player implements Runnable {
 		state = state.nextState();
 		if(state instanceof PlayerStateMove) {
 			for(Player player : game.getPlayerList())
+				if(!(player.getState() instanceof PlayerStateWin))
 				player.output.println("NEXT " + playerId);
 		}
 	}

@@ -11,11 +11,11 @@ import Client.Field;
 import Client.PlayerField;
 
 public class ChineseCheckersRules implements GameRules {
-	private Board board;
+	private transient Board board;
 	
-	public ChineseCheckersRules(int playerNumber) {
+	public ChineseCheckersRules(final int playerNumber) {
 		if(this.isPlayerNumberGood(playerNumber)) {
-			BoardBuilder boardBuilder = new ChineseCheckersBoardBuilder(new Dimension(500, 500));
+			final BoardBuilder boardBuilder = new ChineseCheckersBoardBuilder(new Dimension(500, 500));
 	        boardBuilder.buildBoard(playerNumber);
 	        board = boardBuilder.getBoard();
 		}
@@ -26,301 +26,167 @@ public class ChineseCheckersRules implements GameRules {
 	}
 	
 	@Override
-	public int [][] availableMoves (int start_x, int start_y) {
-		int[][] tab = new int[1000][2];
-		int i = 0;
-		for(ArrayList<Field> field_tab: board.getFieldArray()) {
-			for(Field field: field_tab) {
+	public ArrayList<FieldCords> availableMoves (final int startX, final int startY) {
+		ArrayList<FieldCords> tab = new ArrayList<FieldCords>();
+		for(ArrayList<Field> fieldTab: board.getFieldArray()) {
+			for(Field field: fieldTab) {
 				if(field instanceof PlayerField && field.getOwnerId()==0) {
-					int x = field_tab.indexOf(field);
-					int y = board.getFieldArray().indexOf(field_tab);
-					if((x == start_x+1 || x==start_x-1) && y==start_y ) {
-						tab[i][0] = x;
-						tab[i][1] = y;
-						i++;
+					int x = fieldTab.indexOf(field);
+					int y = board.getFieldArray().indexOf(fieldTab);
+					if((x == startX+1 || x==startX-1) && y==startY ) {
+						tab.add(new FieldCords(x, y));
 					}
-					else if(y==start_y+1) {
-						if( (start_y%2 == 1) && (x == start_x || x == start_x+1)) {
-							tab[i][0] = x;
-							tab[i][1] = y;
-							i++;
+					else if(y==startY+1) {
+						if( (startY%2 == 1) && (x == startX || x == startX+1)) {
+							tab.add(new FieldCords(x, y));
 						}
-						if( (start_y%2 == 0) && (x == start_x-1 || x == start_x)) {
-							tab[i][0] = x;
-							tab[i][1] = y;
-							i++;
+						if( (startY%2 == 0) && (x == startX-1 || x == startX)) {
+							tab.add(new FieldCords(x, y));
 						}
 					}
-					else if(y==start_y-1) {
-						if( (start_y%2 == 1) && (x == start_x || x == start_x+1)) {
-							tab[i][0] = x;
-							tab[i][1] = y;
-							i++;
+					else if(y==startY-1) {
+						if( (startY%2 == 1) && (x == startX || x == startX+1)) {
+							tab.add(new FieldCords(x, y));
 						}
-						if( (start_y%2 == 0) && (x == start_x-1 || x == start_x)) {
-							tab[i][0] = x;
-							tab[i][1] = y;
-							i++;
+						if( (startY%2 == 0) && (x == startX-1 || x == startX)) {
+							tab.add(new FieldCords(x, y));
 						}
 					}
 				}
 			}				
 		}
-		tab[i][0] = -1;
-		tab[i][1] = -1;
-		tab = checkCombo(tab, start_x, start_y, 0, 1);
+		tab = checkCombo(tab, startX, startY, 0, 1);
 		return tab;
 	}
 	
-	public boolean hasThisMove(int [][] tab, int x, int y, int size) {
-		for (int i = 0 ; i < size; i++) {
-			if(tab[i][0] == x && tab[i][1] == y) {
+	public boolean hasThisMove(final ArrayList<FieldCords> tab, final int x, final int y) {
+		for (int i = 0 ; i < tab.size(); i++) {
+			if(tab.get(i).getX() == x && tab.get(i).getY() == y) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public int [][] checkCombo(int [][] tab, int start_x, int start_y, int banned_dir, int depth) {
+	public ArrayList<FieldCords> checkCombo(ArrayList<FieldCords> tab, final int startX, final int startY, final int bannedDir, int depth) {
 		/*
-		 * DOWN_LEFT -> banned_dir = 1
-		 * LEFT -> banned_dir = 2
-		 * UP_LEFT -> banned_dir = 3
-		 * UP_RIGHT -> banned_dir = 4
-		 * RIGHT -> banned_dir = 5
-		 * DOWN_RIGHT -> banned_dir = 6
+		 * DOWN_LEFT -> bannedDir = 1
+		 * LEFT -> bannedDir = 2
+		 * UP_LEFT -> bannedDir = 3
+		 * UP_RIGHT -> bannedDir = 4
+		 * RIGHT -> bannedDir = 5
+		 * DOWN_RIGHT -> bannedDir = 6
 		 */
 		//if number of jumps is more than 350, 
 		//end combo (longest jumps are shorter than that, proven using algorithms) - to prevent loops
-		if(depth > 350) 
+		if(depth > 350) {
 			return tab;
-		boolean inif = false;
-		int i;
-		for (i = 0; i < tab.length; i++) {
-			if (tab[i][0] == -1) {
-			  break;
-		  }
 		}
-		ArrayList<ArrayList<Field>> tab_pom= board.getFieldArray();
+
+		ArrayList<ArrayList<Field>> tabPom = board.getFieldArray();
 		//RIGHT JUMP
-		if( banned_dir != 5 && (start_x < tab_pom.get(start_y).size() - 2) && 
-				(tab_pom.get(start_y).get(start_x+1) instanceof PlayerField) && (tab_pom.get(start_y).get(start_x+1).getOwnerId() > 0) && 
-				(tab_pom.get(start_y).get(start_x+2) instanceof PlayerField) && (tab_pom.get(start_y).get(start_x+2).getOwnerId() == 0) ) {
-			if(hasThisMove(tab, start_x+2, start_y, i)) {
-				
-			}
-			else {
-				tab[i][0] = start_x+2;
-				tab[i][1] = start_y;
-				i++;
-				tab[i][0] = -1;
-				tab[i][1] = -1;
-				inif = true;
-				tab = checkCombo(tab, start_x+2, start_y, 2, ++depth);
-			}
-							
+		if( bannedDir != 5 && (startX < tabPom.get(startY).size() - 2) && 
+				(tabPom.get(startY).get(startX+1) instanceof PlayerField) && (tabPom.get(startY).get(startX+1).getOwnerId() > 0) && 
+				(tabPom.get(startY).get(startX+2) instanceof PlayerField) && (tabPom.get(startY).get(startX+2).getOwnerId() == 0) ) {
+			if(!hasThisMove(tab, startX+2, startY)) {
+				tab.add(new FieldCords(startX+2, startY));
+				tab = checkCombo(tab, startX+2, startY, 2, ++depth);
+			}						
 		}
-		if(inif) {
-			for (i = 0; i < tab.length; i++) {
-				if (tab[i][0] == -1) {
-					break;
-				}
-			}
-		}
-		inif = false;
+
 		//LEFT JUMP
-		if( banned_dir != 2 && start_x - 1 > 0 && 
-				tab_pom.get(start_y).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y).get(start_x-1).getOwnerId() > 0 &&
-				tab_pom.get(start_y).get(start_x-2) instanceof PlayerField && tab_pom.get(start_y).get(start_x-2).getOwnerId() == 0) {
-			if(hasThisMove(tab, start_x-2, start_y, i)) {
-				
-			}
-			else {
-				tab[i][0] = start_x-2;
-				tab[i][1] = start_y;
-				i++;
-				tab[i][0] = -1;
-				tab[i][1] = -1;
-				inif = true;
-				tab = checkCombo(tab, start_x-2, start_y, 5, ++depth);
+		if( bannedDir != 2 && startX - 1 > 0 && 
+				tabPom.get(startY).get(startX-1) instanceof PlayerField && tabPom.get(startY).get(startX-1).getOwnerId() > 0 &&
+				tabPom.get(startY).get(startX-2) instanceof PlayerField && tabPom.get(startY).get(startX-2).getOwnerId() == 0) {
+			if(!hasThisMove(tab, startX-2, startY)) {
+				tab.add(new FieldCords(startX-2, startY));
+				tab = checkCombo(tab, startX-2, startY, 5, ++depth);
 			}
 		}
-		if(inif) {
-			for (i = 0; i < tab.length; i++) {
-				if (tab[i][0] == -1) {
-					break;
-				}
-			}
-		}
-		inif = false;
+
 		//DOWN-RIGHT JUMP
-		if( banned_dir != 6 && start_x+1 < tab_pom.get(start_y).size() && start_y+2 < tab_pom.size()) {
-			if( start_y%2 == 0 ) {
-				if(tab_pom.get(start_y+1).get(start_x) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x).getOwnerId() > 0 &&
-						tab_pom.get(start_y+2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x+1).getOwnerId() == 0) {
-					if(hasThisMove(tab, start_x+1, start_y+2, i)) {
-						
-					}
-					else {
-						tab[i][0] = start_x+1;
-						tab[i][1] = start_y+2;
-						i++;
-						tab[i][0] = -1;
-						tab[i][1] = -1;
-						inif = true;
-						tab = checkCombo(tab, start_x+1, start_y+2, 3, ++depth);
+		if( bannedDir != 6 && startX+1 < tabPom.get(startY).size() && startY+2 < tabPom.size()) {
+			if( startY%2 == 0 ) {
+				if(tabPom.get(startY+1).get(startX) instanceof PlayerField && tabPom.get(startY+1).get(startX).getOwnerId() > 0 &&
+						tabPom.get(startY+2).get(startX+1) instanceof PlayerField && tabPom.get(startY+2).get(startX+1).getOwnerId() == 0) {
+					if(!hasThisMove(tab, startX+1, startY+2)) {
+						tab.add(new FieldCords(startX+1, startY+2));
+						tab = checkCombo(tab, startX+1, startY+2, 3, ++depth);
 					}		
 				}
 			}
-			else if(start_y%2 == 1) {
-				if(tab_pom.get(start_y+1).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x+1).getOwnerId() > 0 &&
-						tab_pom.get(start_y+2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x+1).getOwnerId() == 0) {
-					if(hasThisMove(tab, start_x+1, start_y+2, i)) {
-						
-					}
-					else {
-						tab[i][0] = start_x+1;
-						tab[i][1] = start_y+2;
-						i++;
-						tab[i][0] = -1;
-						tab[i][1] = -1;
-						inif = true;
-						tab = checkCombo(tab, start_x+1, start_y+2, 3, ++depth);
+			else {
+				if(tabPom.get(startY+1).get(startX+1) instanceof PlayerField && tabPom.get(startY+1).get(startX+1).getOwnerId() > 0 &&
+						tabPom.get(startY+2).get(startX+1) instanceof PlayerField && tabPom.get(startY+2).get(startX+1).getOwnerId() == 0) {
+					if(!hasThisMove(tab, startX+1, startY+2)) {
+						tab.add(new FieldCords(startX+1, startY+2));
+						tab = checkCombo(tab, startX+1, startY+2, 3, ++depth);
 					}
 				}
 			}		
 		}
-		if(inif) {
-			for (i = 0; i < tab.length; i++) {
-				if (tab[i][0] == -1) {
-					break;
-				}
-			}
-		}
-		inif = false;
+
 		//DOWN-LEFT JUMP
-		if( banned_dir != 1 && start_x > 0 && start_y+2 < tab_pom.size()) {
-			if( start_y%2 == 0 ) {
-				if(tab_pom.get(start_y+1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x-1).getOwnerId() > 0 &&
-						tab_pom.get(start_y+2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-1).getOwnerId() == 0) {
-					if(hasThisMove(tab, start_x-1, start_y+2, i)) {
-						
-					}
-					else {
-						tab[i][0] = start_x-1;
-						tab[i][1] = start_y+2;
-						i++;
-						tab[i][0] = -1;
-						tab[i][1] = -1;
-						inif = true;
-						tab = checkCombo(tab, start_x-1, start_y+2, 4, ++depth);
+		if( bannedDir != 1 && startX > 0 && startY+2 < tabPom.size()) {
+			if( startY%2 == 0 ) {
+				if(tabPom.get(startY+1).get(startX-1) instanceof PlayerField && tabPom.get(startY+1).get(startX-1).getOwnerId() > 0 &&
+						tabPom.get(startY+2).get(startX-1) instanceof PlayerField && tabPom.get(startY+2).get(startX-1).getOwnerId() == 0) {
+					if(!hasThisMove(tab, startX-1, startY+2)) {
+						tab.add(new FieldCords(startX-1, startY+2));
+						tab = checkCombo(tab, startX-1, startY+2, 4, ++depth);
 					}
 				}
 			}
-			else if(start_y%2 == 1) {
-				if(tab_pom.get(start_y+1).get(start_x) instanceof PlayerField && tab_pom.get(start_y+1).get(start_x).getOwnerId() > 0 &&
-						tab_pom.get(start_y+2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y+2).get(start_x-1).getOwnerId() == 0) {
-					if(hasThisMove(tab, start_x-1, start_y+2, i)) {
-						
-					}
-					else {
-						tab[i][0] = start_x-1;
-						tab[i][1] = start_y+2;
-						i++;
-						tab[i][0] = -1;
-						tab[i][1] = -1;
-						inif = true;
-						tab = checkCombo(tab, start_x-1, start_y+2, 4, ++depth);	
+			else {
+				if(tabPom.get(startY+1).get(startX) instanceof PlayerField && tabPom.get(startY+1).get(startX).getOwnerId() > 0 &&
+						tabPom.get(startY+2).get(startX-1) instanceof PlayerField && tabPom.get(startY+2).get(startX-1).getOwnerId() == 0) {
+					if(!hasThisMove(tab, startX-1, startY+2)) {
+						tab.add(new FieldCords(startX-1, startY+2));
+						tab = checkCombo(tab, startX-1, startY+2, 4, ++depth);	
 					}
 				}
 			}		
 		}
-		if(inif) {
-			for (i = 0; i < tab.length; i++) {
-				if (tab[i][0] == -1) {
-					break;
-				}
-			}
-		}
-		inif = false;
+
 		//UP-RIGHT JUMP
-		if( banned_dir != 4 && start_x+1 < tab_pom.get(start_y).size() && start_y-1 > 0) {
-			if( start_y%2 == 0 ) {
-				if(tab_pom.get(start_y-1).get(start_x) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x).getOwnerId() > 0 &&
-						tab_pom.get(start_y-2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x+1).getOwnerId() == 0) {
-					if(hasThisMove(tab, start_x+1, start_y-2, i)) {
-						
-					}
-					else {
-						tab[i][0] = start_x+1;
-						tab[i][1] = start_y-2;
-						i++;
-						tab[i][0] = -1;
-						tab[i][1] = -1;
-						inif = true;
-						tab = checkCombo(tab, start_x+1, start_y-2, 1, ++depth);	
+		if( bannedDir != 4 && startX+1 < tabPom.get(startY).size() && startY-1 > 0) {
+			if( startY%2 == 0 ) {
+				if(tabPom.get(startY-1).get(startX) instanceof PlayerField && tabPom.get(startY-1).get(startX).getOwnerId() > 0 &&
+						tabPom.get(startY-2).get(startX+1) instanceof PlayerField && tabPom.get(startY-2).get(startX+1).getOwnerId() == 0) {
+					if(!hasThisMove(tab, startX+1, startY-2)) {
+						tab.add(new FieldCords(startX+1, startY-2));
+						tab = checkCombo(tab, startX+1, startY-2, 1, ++depth);
 					}
 				}
 			}
-			else if(start_y%2 == 1) {
-				if(tab_pom.get(start_y-1).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x+1).getOwnerId() > 0 &&
-						tab_pom.get(start_y-2).get(start_x+1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x+1).getOwnerId() == 0) {
-					if(hasThisMove(tab, start_x+1, start_y-2, i)) {
-						
-					}
-					else {
-						tab[i][0] = start_x+1;
-						tab[i][1] = start_y-2;
-						i++;
-						tab[i][0] = -1;
-						tab[i][1] = -1;
-						inif = true;
-						tab = checkCombo(tab, start_x+1, start_y-2, 1, ++depth);
+			else {
+				if(tabPom.get(startY-1).get(startX+1) instanceof PlayerField && tabPom.get(startY-1).get(startX+1).getOwnerId() > 0 &&
+						tabPom.get(startY-2).get(startX+1) instanceof PlayerField && tabPom.get(startY-2).get(startX+1).getOwnerId() == 0) {
+					if(!hasThisMove(tab, startX+1, startY-2)) {
+						tab.add(new FieldCords(startX+1, startY-2));
+						tab = checkCombo(tab, startX+1, startY-2, 1, ++depth);
 					}
 				}
 			}		
 		}
-		if(inif) {
-			for (i = 0; i < tab.length; i++) {
-				if (tab[i][0] == -1) {
-					break;
-				}
-			}
-		}
-		inif = false;
+
 		//UP-LEFT JUMP
-		if( banned_dir != 3 && start_x > 0 && start_y-1 > 0) {
-			if( start_y%2 == 0 ) {
-				if(tab_pom.get(start_y-1).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x-1).getOwnerId() > 0 &&
-						tab_pom.get(start_y-2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x-1).getOwnerId() == 0) {
-					if(hasThisMove(tab, start_x-1, start_y-2, i)) {
-						
-					}
-					else {
-						tab[i][0] = start_x-1;
-						tab[i][1] = start_y-2;
-						i++;
-						tab[i][0] = -1;
-						tab[i][1] = -1;
-						inif = true;
-						tab = checkCombo(tab, start_x-1, start_y-2, 6, ++depth);	
+		if( bannedDir != 3 && startX > 0 && startY-1 > 0) {
+			if( startY%2 == 0 ) {
+				if(tabPom.get(startY-1).get(startX-1) instanceof PlayerField && tabPom.get(startY-1).get(startX-1).getOwnerId() > 0 &&
+						tabPom.get(startY-2).get(startX-1) instanceof PlayerField && tabPom.get(startY-2).get(startX-1).getOwnerId() == 0) {
+					if(!hasThisMove(tab, startX-1, startY-2)) {
+						tab.add(new FieldCords(startX-1, startY-2));
+						tab = checkCombo(tab, startX-1, startY-2, 6, ++depth);	
 					}
 				}
 			}
-			else if(start_y%2 == 1) {
-				if(tab_pom.get(start_y-1).get(start_x) instanceof PlayerField && tab_pom.get(start_y-1).get(start_x).getOwnerId() > 0 &&
-						tab_pom.get(start_y-2).get(start_x-1) instanceof PlayerField && tab_pom.get(start_y-2).get(start_x-1).getOwnerId() == 0) {
-					if(hasThisMove(tab, start_x-1, start_y-2, i)) {
-						
-					}
-					else {
-						tab[i][0] = start_x-1;
-						tab[i][1] = start_y-2;
-						i++;
-						tab[i][0] = -1;
-						tab[i][1] = -1;
-						inif = true;
-						tab = checkCombo(tab, start_x-1, start_y-2, 6, ++depth);
+			else {
+				if(tabPom.get(startY-1).get(startX) instanceof PlayerField && tabPom.get(startY-1).get(startX).getOwnerId() > 0 &&
+						tabPom.get(startY-2).get(startX-1) instanceof PlayerField && tabPom.get(startY-2).get(startX-1).getOwnerId() == 0) {
+					if(!hasThisMove(tab, startX-1, startY-2)) {
+						tab.add(new FieldCords(startX-1, startY-2));
+						tab = checkCombo(tab, startX-1, startY-2, 6, ++depth);
 					}
 				}
 			}		
@@ -338,24 +204,22 @@ public class ChineseCheckersRules implements GameRules {
 	}
 
 	@Override
-	public boolean isMoveGood(int start_x, int start_y, int end_x, int end_y, int playerId, int playerCount) {
-		if ( isInWinningTriangle(start_x, start_y, end_x, end_y, playerId, playerCount ) ) {
-			int [][] tab = this.availableMoves(start_x, start_y);
-			int i = 0;
-			while(tab[i][0] != -1) {
-				System.out.printf("%d,%d\n", tab[i][0], tab[i][1]);
-				if(tab[i][0] == end_x && tab[i][1] == end_y) {
-					Rectangle2D tempFrameSource = board.getFieldArray().get(start_y).get(start_x).getField().getFrame();
-			        Rectangle2D tempFrameTarget = board.getFieldArray().get(end_y).get(end_x).getField().getFrame();
-			        board.getFieldArray().get(start_y).get(start_x).getField().setFrame(tempFrameTarget);
-			        board.getFieldArray().get(end_y).get(end_x).getField().setFrame(tempFrameSource);
+	public boolean isMoveGood(final int startX, final int startY, final int endX, final int endY, final int playerId, final int playerCount) {
+		if ( isInWinningTriangle(startX, startY, endX, endY, playerId, playerCount ) ) {
+			ArrayList<FieldCords> tab = this.availableMoves(startX, startY);
+			for(FieldCords point: tab) {
+				System.out.printf("%d,%d\n", point.getX(), point.getY());
+				if(point.getX() == endX && point.getY() == endY) {
+					Rectangle2D tempFrameSource = board.getFieldArray().get(startY).get(startX).getField().getFrame();
+			        Rectangle2D tempFrameTarget = board.getFieldArray().get(endY).get(endX).getField().getFrame();
+			        board.getFieldArray().get(startY).get(startX).getField().setFrame(tempFrameTarget);
+			        board.getFieldArray().get(endY).get(endX).getField().setFrame(tempFrameSource);
 	
-			        Field tempField = board.getFieldArray().get(start_y).get(start_x);
-			        board.getFieldArray().get(start_y).set(start_x, board.getFieldArray().get(end_y).get(end_x));
-			        board.getFieldArray().get(end_y).set(end_x, tempField);
+			        Field tempField = board.getFieldArray().get(startY).get(startX);
+			        board.getFieldArray().get(startY).set(startX, board.getFieldArray().get(endY).get(endX));
+			        board.getFieldArray().get(endY).set(endX, tempField);
 					return true;
 				}
-				i++;
 			}
 			return false;
 		}
@@ -363,17 +227,18 @@ public class ChineseCheckersRules implements GameRules {
 		return false;
 	}
 	
-	public boolean isInWinningTriangle(int start_x, int start_y, int end_x, int end_y, int playerId, int playerCount) {
+	public boolean isInWinningTriangle(int startX, int startY, int endX, int endY, int playerId, int playerCount) {
 		WinningTriangle triangle = new WinningTriangle();
 		for (FieldCords point : triangle.getTriangle(playerCount, playerId)) {
-			int y_pom = point.getY();
-			int x_pom = point.getX();
-			if(start_x == x_pom && start_y == y_pom)	{
-				for (FieldCords point_a : triangle.getTriangle(playerCount, playerId)) {
-					int y = point_a.getY();
-					int x = point_a.getX();
-					if(end_x == x && end_y == y)
+			int yPom = point.getY();
+			int xPom = point.getX();
+			if(startX == xPom && startY == yPom)	{
+				for (FieldCords pointPom : triangle.getTriangle(playerCount, playerId)) {
+					int y = pointPom.getY();
+					int x = pointPom.getX();
+					if(endX == x && endY == y) {
 						return true;
+					}
 				}
 				return false;
 			}
@@ -384,14 +249,16 @@ public class ChineseCheckersRules implements GameRules {
 	public boolean hasEnded(int playerCount, int playerId) {
 		WinningTriangle triangle = new WinningTriangle();
 		for (FieldCords point : triangle.getTriangle(playerCount, playerId)) {
-			int y_pom = point.getY();
-			int x_pom = point.getX();
-			if (board.getFieldArray().get(y_pom).get(x_pom) instanceof PlayerField 
-					&& board.getFieldArray().get(y_pom).get(x_pom).getOwnerId() == playerId) {
+			int yPom = point.getY();
+			int xPom = point.getX();
+			if (board.getFieldArray().get(yPom).get(xPom) instanceof PlayerField 
+					&& board.getFieldArray().get(yPom).get(xPom).getOwnerId() == playerId) {
 			
 			}	
-			else 
-				return false;
+			else {
+				return false;				
+			}
+
 		}
 		return true;
 	}

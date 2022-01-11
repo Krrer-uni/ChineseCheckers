@@ -1,15 +1,15 @@
 package Server;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class WinningTriangle {
 
-    private Vector<Vector<FieldCords>> bigList;
+    private ArrayList<ArrayList<FieldCords>> bigList;
 
     public WinningTriangle(){
-        bigList = new Vector<>();
+        bigList = new ArrayList<>();
         for(int i = 0; i < 7; i++) {
-            bigList.add(new Vector<>());
+            bigList.add(new ArrayList<>());
         }
         bigList.get(1).add(new FieldCords(6,0));
         bigList.get(1).add(new FieldCords(6,1));
@@ -83,28 +83,62 @@ public class WinningTriangle {
 
     }
 
-    public Vector<FieldCords> getTriangle(int playerCount, int playerId){
-        if(playerCount == 2){
-            if(playerId == 1) return bigList.get(4);
-            else if(playerId == 2) return bigList.get(1);
-        } else if(playerCount == 3){
-            if(playerId == 1) return bigList.get(3);
-            else if(playerId == 2) return bigList.get(1);
-            else if(playerId == 3) return bigList.get(5);
-        }else if(playerCount == 4){
-            if(playerId == 1) return bigList.get(3);
-            else if(playerId == 2) return bigList.get(2);
-            else if(playerId == 3) return bigList.get(6);
-            else if(playerId == 4) return bigList.get(5);
-        }else if(playerCount == 6){
-            if(playerId == 1) return bigList.get(3);
-            else if(playerId == 2) return bigList.get(2);
-            else if(playerId == 3) return bigList.get(1);
-            else if(playerId == 4) return bigList.get(6);
-            else if(playerId == 5) return bigList.get(5);
-            else if(playerId == 6) return bigList.get(4);
+    public ArrayList<FieldCords> getTriangle(final int playerCount, final int playerId){
+    	ArrayList<FieldCords> tab = new ArrayList<FieldCords>();
+        if(playerCount == 2) {
+            if(playerId == 1) {
+            	tab = bigList.get(4);
+            }
+            else if(playerId == 2) {
+            	tab = bigList.get(1);
+            }
+        } 
+        else if(playerCount == 3) {
+            if(playerId == 1) {
+            	tab = bigList.get(3);
+            }
+            else if(playerId == 2) {
+            	tab = bigList.get(1);
+            }
+            else if(playerId == 3) {
+            	tab = bigList.get(5);
+            }
         }
-        return null;
+        else if(playerCount == 4) {
+            if(playerId == 1) {
+            	tab = bigList.get(3);
+            }
+            else if(playerId == 2) {
+            	tab = bigList.get(2);
+            }
+            else if(playerId == 3) {
+            	tab = bigList.get(6);
+            }
+            else if(playerId == 4) {
+            	tab = bigList.get(5);
+            }
+        }
+        else if(playerCount == 6) {
+            if(playerId == 1) {
+            	tab = bigList.get(3);
+            }
+            else if(playerId == 2) {
+            	tab = bigList.get(2);
+            }
+            else if(playerId == 3) {
+            	tab = bigList.get(1);
+            }
+            else if(playerId == 4) {
+            	tab = bigList.get(6);
+            }
+            else if(playerId == 5) {
+            	tab = bigList.get(5);
+            }
+            else if(playerId == 6) {
+            	tab = bigList.get(4);
+            }
+        }
+        return tab;
     }
 
 }
