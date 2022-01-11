@@ -6,7 +6,7 @@ package Server;
  * as they all implement the same interface,
  * so it doesn't have to be hard-coded. 
  * 
- * @author swmar
+ * @author Marek Świergoń
  *
  */
 public class GameRulesFactory {

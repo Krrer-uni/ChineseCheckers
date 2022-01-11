@@ -6,7 +6,7 @@ import Client.Field;
 
 /**
  * Interface describing methods that a good game rules need to have
- * @author swmar
+ * @author Marek Świergoń
  *
  */
 public interface GameRules {

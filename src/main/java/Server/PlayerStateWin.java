@@ -3,14 +3,14 @@ package Server;
 /**
  * Class implementing PlayerState interface. 
  * Describes a state when a player has ended (possibly won) the game.
- * @author swmar
+ * @author Marek Świergoń
  *
  */
 public class PlayerStateWin implements PlayerState{
 
 	/**
-	  * {@inheritDoc}
-	  */
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PlayerState getState() {
 		return this;

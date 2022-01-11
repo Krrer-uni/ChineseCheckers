@@ -3,7 +3,7 @@ package Server;
 /**
  * Interface that has declarations of basic methods used by states, 
  * implementing State pattern.
- * @author swmar
+ * @author Marek Świergoń
  *
  */
 public interface PlayerState {

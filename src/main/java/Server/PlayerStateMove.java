@@ -3,14 +3,14 @@ package Server;
 /**
  * Class implementing PlayerState interface. 
  * Describes a state when a player can move.
- * @author swmar
+ * @author Marek Świergoń
  *
  */
 public class PlayerStateMove implements PlayerState{
 
 	/**
-	  * {@inheritDoc}
-	  */
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PlayerState getState() {
 		return this;
