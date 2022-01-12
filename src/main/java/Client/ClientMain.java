@@ -1,11 +1,13 @@
 package Client;
 
+/**
+ * main class of client
+ */
 public class ClientMain {
-//	String address;
-//	public ClientMain(String address){
-//		this.address = address;
-//	}
-
+	/**
+	 * main method
+	 * @param args args
+	 */
 	public static void main(String[] args){
     	MainWindow window = new MainWindow();
     	while(true) {

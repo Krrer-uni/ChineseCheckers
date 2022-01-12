@@ -2,50 +2,69 @@ package Client;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ChineseCheckersBoardBuilder implements BoardBuilder{
-
-    int rows;
-    int columns;
-    ArrayList<Integer> boardLayout;
-    int playerCount;
-    private int playerId;
-    private Dimension windowDimension;
+/**
+ * builder of boards in chinesecheckers
+ */
+public class ChineseCheckersBoardBuilder implements BoardBuilder {
+    /**
+     * distance between fields on board
+     */
     private final int fieldDistance;
-    private int emptyFieldDistanceCorrection;
-    private Dimension emptyFieldDimension;
-    private final Dimension nonEmptyFieldDimension;
-
+    /**
+     * dimension of Fields
+     */
+    private final Dimension FieldDimensions;
+    /**
+     * offset for all fields in x dim
+     */
     private final int xBoardOffset;
+    /**
+     * offset for all fields in y dim
+     */
     private final int yBoardOffset;
+    /**
+     * number of rows of the board
+     */
+    int rows;
+    /**
+     * number of columns of the board
+     */
+    int columns;
+    /**
+     * 2dim arrayList that stores layout used in building new boards.
+     * each number corresponds to different type of field:
+     * -1 blank space
+     * 0 empty field
+     * 1-6 field that belongs to player with corresponding id
+     */
     private ArrayList<ArrayList<Integer>> layout;
 
+    /**
+     * Constructor set values to declared variables
+     * It calculates correct spacing and size of fields
+     * depending on provided window dimensions
+     *
+     * @param windowDimension window dimension of frame in which board would exist
+     */
     public ChineseCheckersBoardBuilder(Dimension windowDimension) {
-        this.windowDimension = windowDimension;
-
-
         rows = 17;
         columns = 13;
-
         layout = new ArrayList<>();
-        fieldDistance = windowDimension.height / (rows +1 ) ;
-
-        nonEmptyFieldDimension = new Dimension(windowDimension.height / (3 * rows) * 2,
+        fieldDistance = windowDimension.height / (rows + 1);
+        FieldDimensions = new Dimension(windowDimension.height / (3 * rows) * 2,
                 windowDimension.height / (3 * rows) * 2);
-
-        emptyFieldDistanceCorrection = nonEmptyFieldDimension.width / 2;
-
-        emptyFieldDimension = new Dimension(windowDimension.height / (2 * rows) / 2,
-                windowDimension.height / (2 * rows) / 2);
-
-        xBoardOffset = (rows - columns)/2 * fieldDistance;
+        xBoardOffset = (rows - columns) / 2 * fieldDistance;
         yBoardOffset = 20;
     }
 
-
+    /**
+     * builder of the board according to the chosen layout
+     *
+     * @return created board
+     */
     public Board getBoard() {
         Board board = new Board();
         for (int i = 0; i < rows; i++) {
@@ -59,38 +78,43 @@ public class ChineseCheckersBoardBuilder implements BoardBuilder{
                 } else if (layout.get(i).get(j) == 0) {
                     board.fieldArray.get(i).add(new PlayerField(0,
                             new Point2D.Float(fieldDistanceX, fieldDistanceY),
-                            nonEmptyFieldDimension));
+                            FieldDimensions));
                 } else if (layout.get(i).get(j) == 1) {
                     board.fieldArray.get(i).add(new PlayerField(1,
                             new Point2D.Float(fieldDistanceX, fieldDistanceY),
-                            nonEmptyFieldDimension));
+                            FieldDimensions));
                 } else if (layout.get(i).get(j) == 2) {
                     board.fieldArray.get(i).add(new PlayerField(2,
                             new Point2D.Float(fieldDistanceX, fieldDistanceY),
-                            nonEmptyFieldDimension));
-                }else if (layout.get(i).get(j) == 3) {
+                            FieldDimensions));
+                } else if (layout.get(i).get(j) == 3) {
                     board.fieldArray.get(i).add(new PlayerField(3,
                             new Point2D.Float(fieldDistanceX, fieldDistanceY),
-                            nonEmptyFieldDimension));
-                }else if (layout.get(i).get(j) == 4) {
+                            FieldDimensions));
+                } else if (layout.get(i).get(j) == 4) {
                     board.fieldArray.get(i).add(new PlayerField(4,
                             new Point2D.Float(fieldDistanceX, fieldDistanceY),
-                            nonEmptyFieldDimension));
-                }else if (layout.get(i).get(j) == 5) {
+                            FieldDimensions));
+                } else if (layout.get(i).get(j) == 5) {
                     board.fieldArray.get(i).add(new PlayerField(5,
                             new Point2D.Float(fieldDistanceX, fieldDistanceY),
-                            nonEmptyFieldDimension));
-                }else if (layout.get(i).get(j) == 6) {
+                            FieldDimensions));
+                } else if (layout.get(i).get(j) == 6) {
                     board.fieldArray.get(i).add(new PlayerField(6,
                             new Point2D.Float(fieldDistanceX, fieldDistanceY),
-                            nonEmptyFieldDimension));
+                            FieldDimensions));
                 }
             }
         }
         return board;
     }
 
-
+    /**
+     * creates layout for board that is used in a game
+     * according to number of players
+     *
+     * @param playerCount playercount for which the board should be built
+     */
     public void buildBoard(int playerCount) {
         layout = new ArrayList<>();
         if (playerCount == 2) {
@@ -249,7 +273,7 @@ public class ChineseCheckersBoardBuilder implements BoardBuilder{
             layout.add(new ArrayList<>(Arrays.asList(
                     -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1
             )));
-        }  else if (playerCount == 6) {
+        } else if (playerCount == 6) {
             layout.add(new ArrayList<>(Arrays.asList(
                     -1, -1, -1, -1, -1, -1, 6, -1, -1, -1, -1, -1, -1
             )));
@@ -304,7 +328,7 @@ public class ChineseCheckersBoardBuilder implements BoardBuilder{
         }
     }
 
-
+    //reference image showing how the layout looks like
     /*
      - - - - - - 1 - - - - - -
       - - - - - 1 1 - - - - - -

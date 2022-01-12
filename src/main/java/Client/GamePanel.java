@@ -9,16 +9,48 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
+/**
+ * main gamePanel in which the game happens
+ */
 public class GamePanel extends JPanel {
+    /**
+     * Board on which game is played
+     */
     Board board;
+    /**
+     * board builder
+     */
     BoardBuilder boardBuilder;
+    /**
+     * mediator that allows communication with server
+     */
     ChineseCheckerMediator mediator;
+    /**
+     * id assigned to the player
+     */
     int playerId;
+    /**
+     * player whos turn is this
+     */
     int currentPlayer;
-    JButton skipbutton;
+    /**
+     * button to skip your turn
+     */
+    JButton skipButton;
+    /**
+     * text that displays information about the player
+     */
     JTextArea playerInfo;
+    /**
+     * text that changes throughout the game and displays useful info
+     */
     JTextArea gameInfo;
 
+    /**
+     * constructor of Game Panel
+     * @param windowWidth width of window
+     * @param windowHeight height of window
+     */
     public GamePanel(int windowWidth, int windowHeight) {
         currentPlayer = 0;
 
@@ -30,9 +62,9 @@ public class GamePanel extends JPanel {
 
         setLayout(null);
 
-        skipbutton = new JButton("Skip Turn");
-        add(skipbutton);
-        skipbutton.setBounds((int) (windowWidth * 0.7), (int) (windowHeight * 0.8),
+        skipButton = new JButton("Skip Turn");
+        add(skipButton);
+        skipButton.setBounds((int) (windowWidth * 0.7), (int) (windowHeight * 0.8),
                 (int) (windowWidth * 0.25), (int) (windowHeight * 0.1));
 
         playerInfo  = new JTextArea("You are a player " + playerId + "\n");
@@ -54,15 +86,23 @@ public class GamePanel extends JPanel {
         add(gameInfo);
 
         addMouseListener(new GameMouseListener());
-        skipbutton.addActionListener(new SkipButtonListener());
+        skipButton.addActionListener(new SkipButtonListener());
 
         repaint();
     }
 
+    /**
+     * setter of mediator
+     * @param mediator mediator
+     */
     public void setGameServerMediator(ChineseCheckerMediator mediator) {
         this.mediator = mediator;
     }
 
+    /**
+     * function that builds a new board according to the nubmer of players
+     * @param playerCount number of players
+     */
     public void setBoardBuilderLayout(int playerCount) {
         boardBuilder.buildBoard(playerCount);
         board = boardBuilder.getBoard();
@@ -91,6 +131,11 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * setter for player id that also changes
+     * the text of playerInfo text box
+     * @param playerId id of player to be asigned
+     */
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
         String message = "You are a player ";
@@ -106,6 +151,11 @@ public class GamePanel extends JPanel {
         this.playerInfo.setText(message);
     }
 
+    /**
+     * sets a player whose turn starts, also
+     * changes text of game info
+     * @param currentPlayer player whose turn started
+     */
     public void setCurrentPlayer(int currentPlayer) {
         this.currentPlayer = currentPlayer;
 
@@ -113,6 +163,11 @@ public class GamePanel extends JPanel {
         gameInfo.setVisible(true);
     }
 
+    /**
+     * sets text of gameInfo to display place
+     * that the player finished on
+     * @param place place of the player
+     */
     public void gameFinished(int place){
         if(place == 1){
             gameInfo.setFont(new Font("Sans", Font.PLAIN, 50));
@@ -126,7 +181,13 @@ public class GamePanel extends JPanel {
         gameInfo.setVisible(true);
     }
 
-
+    /**
+     * Function that changes position of two fields on the board
+     * @param sourceRow row of first field
+     * @param sourceColumn column of first field
+     * @param targetRow row of second field
+     * @param targetColumn column of second field
+     */
     public void updateBoard(int sourceRow, int sourceColumn, int targetRow, int targetColumn) {
         board.fieldArray.get(sourceRow).get(sourceColumn).setActive(false);
         Rectangle2D tempFrameSource =
@@ -189,19 +250,34 @@ public class GamePanel extends JPanel {
         }
     }
 
-
+    /**
+     * getter fo player id
+     * @return id
+     */
     public int getPlayerId() {
         return playerId;
     }
 
+    /**
+     * getter for current player
+     * @return current player
+     */
     public int getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * getter for text area object
+     * @return text area object
+     */
     public JTextArea getPlayerInfo() {
         return playerInfo;
     }
 
+    /**
+     * getter of game info object
+     * @return game info object
+     */
     public JTextArea getGameInfo() {
         return gameInfo;
     }
