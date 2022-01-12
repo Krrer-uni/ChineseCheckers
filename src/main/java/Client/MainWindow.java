@@ -3,20 +3,31 @@ package Client;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Main window of the application
+ */
 public class MainWindow extends JFrame {
-    private static int windowSize = 700;
-    private GamePanel gamePanel;
-    
-    public MainWindow(){
+    /**
+     * Panel with game
+     */
+    private final GamePanel gamePanel;
+
+    public MainWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(windowSize,windowSize);
+        int windowSize = 700;
+        setSize(windowSize, windowSize);
         setLayout(new BorderLayout());
         setResizable(false);
-        this.gamePanel = new GamePanel(getWidth(),getHeight());
-        add(gamePanel,BorderLayout.CENTER);
+        this.gamePanel = new GamePanel(getWidth(), getHeight());
+        add(gamePanel, BorderLayout.CENTER);
     }
 
-    public GamePanel getGamePanel(){
-    	return gamePanel;
+    /**
+     * getter for game panel
+     *
+     * @return game panel
+     */
+    public GamePanel getGamePanel() {
+        return gamePanel;
     }
 }

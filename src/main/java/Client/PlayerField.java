@@ -17,22 +17,34 @@ public class PlayerField implements Field {
         field.setFrame(location, size);
         isActive = false;
     }
-
+    /**
+     * owner id getter
+     * @return owner id
+     */
     @Override
     public int getOwnerId() {
         return ownerId;
     }
-
+    /**
+     *  field getter
+     * @return field
+     */
     @Override
     public Ellipse2D getField() {
         return field;
     }
-
+    /**
+     *  getter for active state
+     * @return state of field
+     */
     @Override
     public boolean isActive() {
         return isActive;
     }
-
+    /**
+     * setter for active state
+     * @param state state of field
+     */
     @Override
     public void setActive(boolean state) {
         isActive = state;
