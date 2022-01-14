@@ -6,16 +6,16 @@ Game consist of two executables, ServerMain and ClientMain. To start a game you 
 
 1. first you need to pull this repo using 
 
-git pull https://github.com/Krrer-uni/ChineseCheckers.git
+<i>git pull https://github.com/Krrer-uni/ChineseCheckers.git</i>
 
 2. Compile the project using 
-mvn package
+<i>mvn package</i>
 
 3. Run the server:
-java -cp .\target\ChineseCheckers-1.0-SNAPSHOT.jar Server.ServerMain
+<i>java -cp .\target\ChineseCheckers-1.0-SNAPSHOT.jar Server.ServerMain</i>
 
 4. Run the client:
-java -cp .\target\ChineseCheckers-1.0-SNAPSHOT.jar Client.ClientMain
+<i>java -cp .\target\ChineseCheckers-1.0-SNAPSHOT.jar Client.ClientMain</i>
 
 
 created by Marek Świergoń and Wojtek Rymer
